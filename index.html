@@ -1,0 +1,2068 @@
+<html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard DFs · Kanastra 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f1f5f9; --surface:#ffffff; --border:#e2e8f0; --border2:#cbd5e1;
+  --text:#0f172a; --text-muted:#64748b; --text-faint:#94a3b8;
+  --green:#14735a; --green-dim:rgba(20,115,90,0.10); --green-glow:0 0 18px rgba(20,115,90,0.20);
+  --red:#dc2626;   --red-dim:rgba(220,38,38,0.08);   --red-glow:0 0 18px rgba(220,38,38,0.18);
+  --amber:#d97706; --amber-dim:rgba(217,119,6,0.08);
+  --yellow:#b45309;--yellow-dim:rgba(180,83,9,0.08);
+  --radius:14px; --radius-sm:8px;
+  --shadow:0 1px 4px rgba(15,23,42,0.08); --shadow-md:0 4px 20px rgba(15,23,42,0.12);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:14px;min-height:100vh;}
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+/* ── HEADER ── */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 36px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(15,23,42,0.07);}
+.header-left{display:flex;align-items:center;gap:14px;}
+.header-logo{width:34px;height:34px;background:linear-gradient(135deg,#14735a,#22c55e);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.header-logo svg{width:18px;height:18px;fill:none;stroke:white;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.header-title{font-size:15px;font-weight:700;letter-spacing:-0.3px;}
+.header-sep{width:1px;height:18px;background:var(--border);}
+.header-sub{font-size:11px;color:var(--text-faint);font-family:'Inter',sans-serif;}
+.kanastra-badge{display:flex;align-items:center;gap:6px;margin-right:16px;}
+.kanastra-dot{width:7px;height:7px;border-radius:50%;background:var(--green);}
+.kanastra-word{font-weight:800;font-size:17px;color:var(--green);letter-spacing:-0.04em;}
+.tab-bar{display:flex;}
+.tab-btn{padding:0 18px;height:60px;border:none;background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;margin-bottom:-1px;white-space:nowrap;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--green);border-bottom-color:var(--green);font-weight:600;}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ── LAYOUT ── */
+main{padding:24px 36px;max-width:1440px;margin:0 auto;}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;box-shadow:var(--shadow);}
+.filter-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.7px;color:var(--text-faint);white-space:nowrap;}
+.chip{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.chip:hover{border-color:var(--green);color:var(--text);}
+.chip.active{background:var(--green-dim);border-color:var(--green);color:var(--green);font-weight:700;}
+
+/* ── KPI GRID ── */
+.kpi-grid{display:grid;gap:14px;margin-bottom:20px;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);position:relative;overflow:hidden;animation:fadeUp .4s ease both;transition:all .25s;}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.kpi-card.c-red::before   {background:linear-gradient(90deg,var(--red),transparent);}
+.kpi-card.c-amber::before {background:linear-gradient(90deg,var(--amber),transparent);}
+.kpi-card.c-yellow::before{background:linear-gradient(90deg,var(--yellow),transparent);}
+.kpi-card.c-green::before {background:linear-gradient(90deg,var(--green),transparent);}
+.kpi-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);}
+.kpi-card.c-red:hover   {box-shadow:var(--red-glow);}
+.kpi-card.c-green:hover {box-shadow:var(--green-glow);}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.kpi-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;padding:3px 8px;border-radius:4px;}
+.tag-red   {background:var(--red-dim);   color:var(--red);   border:1px solid rgba(220,38,38,0.2);}
+.tag-amber {background:var(--amber-dim); color:var(--amber); border:1px solid rgba(217,119,6,0.2);}
+.tag-yellow{background:var(--yellow-dim);color:var(--yellow);border:1px solid rgba(180,83,9,0.2);}
+.tag-green {background:var(--green-dim); color:var(--green); border:1px solid rgba(20,115,90,0.2);}
+.kpi-value{font-size:48px;font-weight:800;line-height:1;letter-spacing:-2.5px;}
+.kpi-value.c-red   {color:var(--red);}
+.kpi-value.c-amber {color:var(--amber);}
+.kpi-value.c-yellow{color:var(--yellow);}
+.kpi-value.c-green {color:var(--green);}
+.kpi-label{font-size:11px;color:var(--text-muted);margin-top:6px;font-weight:500;}
+.kpi-sub  {font-size:10px;color:var(--text-faint);margin-top:4px;font-family:'Inter',sans-serif;}
+.venc-row{display:flex;align-items:center;gap:8px;}
+.venc-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;border:1px solid;white-space:nowrap;flex-shrink:0;}
+.venc-num{font-size:22px;font-weight:800;color:var(--text);line-height:1;min-width:32px;}
+.venc-sub{font-size:10px;color:var(--text-faint);font-family:'Inter',sans-serif;line-height:1.3;}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);animation:fadeUp .4s ease both;}
+.card-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:3px;}
+.card-sub  {font-size:11px;color:var(--text-faint);margin-bottom:6px;}
+.click-hint{font-size:11px;color:var(--text-faint);font-style:italic;margin-bottom:16px;display:flex;align-items:center;gap:6px;}
+
+/* ── BAR CHART (horizontal) ── */
+.hbar-chart{display:flex;flex-direction:column;gap:10px;padding:4px 0;}
+.hbar-row{display:flex;align-items:center;gap:10px;cursor:pointer;transition:opacity .15s;}
+.hbar-row:hover .hbar-track-fill{}
+.hbar-row.dimmed{opacity:0.25;}
+.hbar-row.selected .hbar-track-fill{outline:2px solid var(--green);outline-offset:2px;}
+.hbar-lbl{font-size:12px;font-family:'Inter',sans-serif;color:var(--text-muted);width:54px;flex-shrink:0;font-weight:600;text-align:right;}
+.hbar-track{flex:1;height:22px;background:#f0faf6;border-radius:4px;overflow:hidden;display:flex;border:1px solid #d1ede4;position:relative;}
+.hbar-track-fill{display:flex;height:100%;border-radius:5px;overflow:hidden;transition:width .7s ease;}
+.hbar-total{font-size:11px;font-family:'Inter',sans-serif;color:var(--text-faint);width:44px;flex-shrink:0;text-align:right;}
+.seg-pub {background:linear-gradient(90deg,#1e5546,#2daa82);}
+.seg-pend{background:linear-gradient(90deg,#92400e,#E2B95A);}
+.seg-atr {background:linear-gradient(90deg,#991b1b,#dc2626);}
+.seg-ok  {background:#60a5fa;}
+.donut-seg{cursor:pointer;transition:opacity .2s,filter .2s,transform .2s;}
+.donut-seg:hover{opacity:1 !important;}
+.donut-track{pointer-events:none;}
+.legend-btn{display:flex;align-items:center;gap:12px;cursor:pointer;padding:8px 12px;border-radius:8px;border:1px solid var(--border);transition:all .18s;background:transparent;}
+.legend-btn:hover{border-color:currentColor;background:rgba(0,0,0,0.02);transform:translateX(3px);}
+.faixa-row{display:flex;align-items:center;gap:10px;cursor:pointer;padding:6px 0;transition:opacity .15s;}
+.faixa-row:hover{opacity:0.75;}
+.chart-legend{display:flex;gap:16px;margin-top:16px;font-size:11px;color:var(--text-muted);}
+.legend-item{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+
+/* ── HBAR CHART (auditoria) ── */
+.hchart-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.hchart-lbl{font-size:11px;font-family:'Inter',sans-serif;color:var(--text-muted);width:52px;flex-shrink:0;font-weight:600;}
+.hchart-track{flex:1;height:22px;background:rgba(15,23,42,0.03);border-radius:4px;overflow:hidden;display:flex;border:1px solid var(--border);}
+.hchart-num{font-size:10px;font-family:'Inter',sans-serif;color:var(--text-faint);width:36px;text-align:right;flex-shrink:0;display:flex;align-items:center;justify-content:flex-end;}
+.aud-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+
+/* ── DRILL PANEL ── */
+.drill-panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:14px;animation:fadeUp .2s ease;}
+.drill-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;}
+.drill-title{font-size:13px;font-weight:700;}
+.drill-tag{font-size:10px;color:var(--text-faint);font-family:'Inter',sans-serif;margin-top:3px;}
+.drill-close{background:none;border:1px solid var(--border);border-radius:6px;color:var(--text-muted);cursor:pointer;font-size:12px;padding:4px 12px;transition:all .15s;font-family:'Inter',sans-serif;}
+.btn-export{background:#193c32;border:none;border-radius:6px;color:#f3f2f3;cursor:pointer;font-size:10px;font-weight:700;padding:5px 14px;font-family:'Inter',sans-serif;letter-spacing:0.6px;text-transform:uppercase;display:inline-flex;align-items:center;gap:5px;transition:opacity .15s;}
+.btn-export:hover{opacity:0.85;}
+.drill-close:hover{border-color:var(--red);color:var(--red);}
+
+/* ── TABLE ── */
+.tbl-scroll{max-height:380px;overflow-y:auto;}
+table.data-tbl{width:100%;border-collapse:collapse;font-size:12px;}
+table.data-tbl thead th{padding:9px 14px;background:#193c32;border-bottom:1px solid #193c32;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:#f3f2f3;white-space:nowrap;position:sticky;top:0;z-index:2;text-align:left;}
+table.data-tbl tbody tr{border-bottom:1px solid rgba(15,23,42,0.04);transition:background .1s;}
+table.data-tbl tbody tr:hover{background:rgba(15,23,42,0.02);}
+table.data-tbl td{padding:9px 12px;color:var(--text-muted);white-space:nowrap;}
+table.data-tbl td.fund-name{color:var(--text);max-width:300px;white-space:normal;line-height:1.4;font-weight:500;}
+
+.pill-pub {display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;background:var(--green-dim);color:var(--green);border:1px solid rgba(20,115,90,0.2);}
+.pill-pend{display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(226,185,90,0.12);color:#b8891a;border:1px solid rgba(226,185,90,0.35);}
+.pill-atr {display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:700;background:var(--red-dim);color:var(--red);border:1px solid rgba(220,38,38,0.2);}
+.pill-nd  {display:inline-block;padding:2px 9px;border-radius:4px;font-size:10px;font-weight:600;background:rgba(15,23,42,0.04);color:var(--text-faint);border:1px solid var(--border);}
+
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:36px 24px;text-align:center;cursor:pointer;transition:all .2s;background:var(--bg);}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--green);background:var(--green-dim);}
+.upload-icon{font-size:32px;margin-bottom:10px;}
+.upload-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.upload-sub{font-size:12px;color:var(--text-muted);}
+footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11px;border-top:1px solid var(--border);font-family:'Inter',sans-serif;margin-top:32px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 4px currentColor;}50%{box-shadow:0 0 12px currentColor;}}
+.d1{animation-delay:.06s;} .d2{animation-delay:.12s;} .d3{animation-delay:.18s;}
+@media(max-width:1300px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}.aud-summary{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:700px){.kpi-grid{grid-template-columns:1fr;}main{padding:16px;}header{padding:0 16px;}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="data:image/png;base64,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o/SZVKK5jZTi5wzZ1ZMZdI2SWhpg2Z7fYulcS55Hm4nO08y6dVS9VhrNcdYnyiBERcWCIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgL86ingqGhtRBFK0HUB7A4D51+iIPk9bLb/AEfSf3Lf1J62W3+j6T+5b+pfWiObQ+T1stv9H0n9y39S/anpqenDhT08UPF14GBuvzL9UQ2EREdEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQf/9k=" alt="Kanastra" style="height:32px;width:auto;object-fit:contain;">
+    <div class="header-sep"></div>
+    <span class="header-title">Demonstrações Financeiras</span>
+    <div class="header-sep"></div>
+    <span class="header-sub" id="headerSub">32 fundos · Exercício &amp; Eventos 2026 · 28/05/2026</span>
+  </div>
+  <div style="display:flex;align-items:center;">
+    <div class="tab-bar">
+      <button class="tab-btn" onclick="switchTab('dfs',this)">Demonstrações Financeiras</button>
+      <button class="tab-btn" onclick="switchTab('auditoria',this)">Contratações Auditorias</button>
+    <button class="tab-btn active" onclick="switchTab('upload',this)">Atualizar Base</button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- FILTER BAR: ANO -->
+  <div class="filter-bar" style="margin-bottom:8px;">
+    <span class="filter-label">Ano</span>
+    <button class="chip" id="yr-2025" onclick="setAno(2025,this)">2025</button>
+    <button class="chip active" id="yr-2026" onclick="setAno(2026,this)">2026</button>
+    <button class="chip" id="yr-2027" onclick="setAno(2027,this)">2027</button>
+    <button class="chip" id="yr-2028" onclick="setAno(2028,this)">2028</button>
+    <button class="chip" id="yr-2029" onclick="setAno(2029,this)">2029</button>
+    <button class="chip" id="yr-2030" onclick="setAno(2030,this)">2030</button>
+  </div>
+
+
+
+  <!-- TAB: DFs (Exercício + Eventos juntos) -->
+  <div class="tab-panel" id="tab-dfs">
+  <!-- DONUT + METRICS (single unified card) -->
+  <div class="card" style="margin-bottom:20px;padding:24px 28px;">
+    <div style="display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
+
+      <!-- Donut -->
+      <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+        <div style="font-size:9px;font-weight:800;letter-spacing:1.8px;color:var(--text-faint);margin-bottom:14px;">VISÃO GERAL DAS DFs</div>
+        <div style="position:relative;">
+          <svg id="donut-dfs" width="240" height="240" viewBox="0 0 240 240"><circle class="donut-track" cx="120" cy="120" r="89" fill="none" stroke="#f1f5f9" stroke-width="38"></circle><path class="donut-seg" data-key="atrasadas" data-val="13" data-lbl="URGENTES — ATRASADAS" data-color="#dc2626" d="M120 50 L120 12 A108 108 0 0 1 227.2822352264788 132.43068802643168 L189.53478209123625 128.05692742453905 A70 70 0 0 0 120 50Z" fill="#dc2626" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'atrasadas')" onmouseleave="donutOut()" onclick="cardDrill('atrasadas')"></path><text x="186.45562010683597" y="60.799910842838244" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">25.5%</text><path class="donut-seg" data-key="pendentes" data-val="42" data-lbl="PENDENTES" data-color="#E2B95A" d="M189.10195062232856 131.17678040355386 L226.6144381030212 137.2441754797688 A108 108 0 0 1 12.39351459456664 110.78890350228284 L50.25505575573763 114.02984486259072 A70 70 0 0 0 189.10195062232856 131.17678040355386Z" fill="#E2B95A" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'pendentes')" onmouseleave="donutOut()" onclick="cardDrill('pendentes')"></path><text x="109.09178675462216" y="208.32899231732105" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">82.4%</text><path class="donut-seg" data-key="publicadas" data-val="9" data-lbl="CONCLUÍDAS" data-color="#14735a" d="M50.594226914644054 110.89842527778411 L12.916807239736528 105.95757042858119 A108 108 0 0 1 115.14164008393269 12.109331548433019 L116.85106301736377 50.070863040651034 A70 70 0 0 0 50.594226914644054 110.89842527778411Z" fill="#14735a" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'publicadas')" onmouseleave="donutOut()" onclick="cardDrill('publicadas')"></path><text x="59.81098811977025" y="54.43870921891819" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">17.6%</text><circle cx="120" cy="120" r="68" fill="white"></circle></svg>
+          <div id="donut-dfs-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;width:116px;">
+            <div id="donut-dfs-val" style="font-size: 40px; font-weight: 800; color: var(--text); line-height: 1; letter-spacing: -2px; transition: 0.25s;">51</div>
+            <div id="donut-dfs-lbl" style="font-size:9px;color:var(--text-faint);margin-top:3px;transition:all .25s;">fundos</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:14px;">
+          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-muted);"><div style="width:7px;height:7px;border-radius:50%;background:#dc2626;"></div>Urgentes</div>
+          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-muted);"><div style="width:7px;height:7px;border-radius:50%;background:#E2B95A;"></div>Pendentes</div>
+          <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--text-muted);"><div style="width:7px;height:7px;border-radius:50%;background:#14735a;"></div>Concluídas</div>
+        </div>
+      </div>
+
+      <!-- Vertical divider -->
+      <div style="width:1px;background:var(--border);align-self:stretch;flex-shrink:0;"></div>
+
+      <!-- 3 metric rows -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:200px;">
+
+        <div onclick="cardDrill('atrasadas')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(220, 38, 38, 0.15); background: rgba(220, 38, 38, 0.04); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(220,38,38,0.09)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(220,38,38,0.04)';this.style.transform=''">
+          <div style="width:4px;height:40px;background:#dc2626;border-radius:2px;flex-shrink:0;"></div>
+          <div id="stat-val-atr" style="font-size:30px;font-weight:800;color:#dc2626;line-height:1;letter-spacing:-1.5px;min-width:44px;">13</div>
+          <div>
+            <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#dc2626;">URGENTES — ATRASADAS</div>
+            <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">DFs com prazo vencido</div>
+          </div>
+        </div>
+
+        <div onclick="cardDrill('pendentes')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(226, 185, 90, 0.2); background: rgba(226, 185, 90, 0.05); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(226,185,90,0.12)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(226,185,90,0.05)';this.style.transform=''">
+          <div style="width:4px;height:40px;background:#E2B95A;border-radius:2px;flex-shrink:0;"></div>
+          <div id="stat-val-pend" style="font-size:30px;font-weight:800;color:#E2B95A;line-height:1;letter-spacing:-1.5px;min-width:44px;">42</div>
+          <div>
+            <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#b8891a;">PENDENTES</div>
+            <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">Aguardando publicação</div>
+          </div>
+        </div>
+
+        <div onclick="cardDrill('publicadas')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(20, 115, 90, 0.15); background: rgba(20, 115, 90, 0.04); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(20,115,90,0.09)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(20,115,90,0.04)';this.style.transform=''">
+          <div style="width:4px;height:40px;background:#14735a;border-radius:2px;flex-shrink:0;"></div>
+          <div id="stat-val-pub" style="font-size:30px;font-weight:800;color:#14735a;line-height:1;letter-spacing:-1.5px;min-width:44px;">9</div>
+          <div>
+            <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#14735a;">CONCLUÍDAS</div>
+            <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">DFs publicadas</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+      <!-- Charts grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+      <!-- Exercício chart -->
+      <div class="card">
+        <div class="card-title">Demonstrações Financeiras — Exercício Social</div>
+        <div class="card-sub">Mês de referência do exercício social — filtrado por ano</div>
+        <div class="click-hint">💡 Clique em uma barra para ver os fundos</div>
+        <div id="ex-chart" class="hbar-chart"><div class="hbar-row" onclick="selectEx(1)" style="">
+      <div class="hbar-lbl">Jan/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub" style="width:100.0%;"></div>
+              <div class="seg-pend" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">6</span><span style="color:var(--text-faint);">/6</span></div>
+    </div><div class="hbar-row" onclick="selectEx(2)" style="">
+      <div class="hbar-lbl">Fev/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub" style="width:100.0%;"></div>
+              <div class="seg-pend" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">2</span><span style="color:var(--text-faint);">/2</span></div>
+    </div><div class="hbar-row" onclick="selectEx(3)" style="">
+      <div class="hbar-lbl">Mar/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub" style="width:12.5%;"></div>
+              <div class="seg-pend" style="width:87.5%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">1</span><span style="color:var(--text-faint);">/8</span></div>
+    </div><div class="hbar-row" onclick="selectEx(4)" style="">
+      <div class="hbar-lbl">Abr/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub" style="width:0.0%;"></div>
+              <div class="seg-pend" style="width:100.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/12</span></div>
+    </div><div class="hbar-row" onclick="selectEx(5)" style="">
+      <div class="hbar-lbl">Mai/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub" style="width:0.0%;"></div>
+              <div class="seg-pend" style="width:100.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/7</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Jun/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Jul/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Ago/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Set/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Out/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Nov/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Dez/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>Publicada</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#E2B95A;"></div>Pendente</div>
+        </div>
+      </div>
+
+      <!-- Eventos chart -->
+      <div class="card">
+        <div class="card-title">Demonstrações Financeiras — Eventos</div>
+        <div class="card-sub">Liquidações, transferências, incorporações e encerramentos — filtrado por ano</div>
+        <div class="click-hint">💡 Clique em uma barra para ver os detalhes</div>
+        <div id="ev-chart" class="hbar-chart"><div class="hbar-row" onclick="selectEv('Jan/26')" style="">
+      <div class="hbar-lbl">Jan/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/5</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Fev/26')" style="">
+      <div class="hbar-lbl">Fev/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/3</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Mar/26')" style="">
+      <div class="hbar-lbl">Mar/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/4</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Abr/26')" style="">
+      <div class="hbar-lbl">Abr/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:50.0%;"></div>
+               <div style="width:50.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/2</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Mai/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="selectEv('Jun/26')" style="">
+      <div class="hbar-lbl">Jun/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:0.0%;"></div>
+               <div style="width:100.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/2</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Jul/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Ago/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Set/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Out/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Nov/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Dez/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Atrasada</div>
+          <div class="legend-item"><div class="legend-dot" style="background:#E2B95A;"></div>Pendente (no prazo)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>Publicada</div>
+        </div>
+      </div>
+
+    </div>
+
+        <!-- Card drill panel -->
+    <div id="card-drill" class="drill-panel" style="display: none; margin-bottom: 16px;">
+    <div class="drill-header">
+      <div>
+        <div class="drill-title" style="color:var(--green);">DFs Publicadas &nbsp;·&nbsp; 9 fundos</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-export" onclick="exportTable('tbl-card-drill','DFs_publicadas')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="cardDrill('publicadas')">✕ Fechar</button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="data-tbl" id="tbl-card-drill">
+        <thead><tr>
+          <th>Tipo</th><th>Fundo</th><th>Auditoria</th><th>Prazo / Evento</th><th>Status</th>
+        </tr></thead>
+        <tbody><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">MULTIBANK</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">FRAGATA</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">HCAM PETRO</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">ONCRED</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">LIVEN</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">Confiance</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">EXPOENTE MERCANTIL</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">&lt; 90dias</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">J17 ORION</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">AGA</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">CLA</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">CPV PS DUPLICATA</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr></tbody>
+      </table>
+    </div></div>
+
+    <!-- Drill-down panels (full-width, abaixo dos gráficos) -->
+    <div id="ex-drill" style="display: none;" class="drill-panel">
+    <div class="drill-header">
+      <div>
+        <div class="drill-title" style="color:var(--green);">Exercício Mar/26 &nbsp;·&nbsp; 8 fundos</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-export" onclick="exportTable('tbl-ex-drill','DFs_Exercicio_Mar')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="selectEx(3)">✕ Fechar</button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="data-tbl" id="tbl-ex-drill">
+        <thead><tr>
+          <th>Fundo</th><th>Analista DF</th><th>Auditoria</th><th>Prazo Legal</th><th>Status Prazo</th><th>Status DF</th>
+        </tr></thead>
+        <tbody><tr>
+          <td class="fund-name">CPV PS DUPLICATA</td>
+          <td style="font-size:11px;">Contabifi</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span class="pill-pub">✓ DF OK</span></td>
+          <td><span class="pill-pub">✓ Publicada</span></td>
+        </tr><tr>
+          <td class="fund-name">FACTIA</td>
+          <td style="font-size:11px;">Contabifi</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">SETTORE CRÉDITO PRIVADO</td>
+          <td style="font-size:11px;">Contabifi</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PICPAY FGTS</td>
+          <td style="font-size:11px;">Contabifi</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">CLA</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">GAMA. LIMITADA</td>
+          <td style="font-size:11px;">Larissa Novais</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">BANMINAS</td>
+          <td style="font-size:11px;">Larissa Novais</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">Next</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">SQUARE</td>
+          <td style="font-size:11px;">Larissa Lourenço</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr><tr>
+          <td class="fund-name">CREDIT PARTNERS FUNDO DE INVESTIMENTO EM DIREITO CREDITÓRIOS</td>
+          <td style="font-size:11px;">Jow</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">Confiance</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+          <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+          <td><span class="pill-pend">⏳ Pendente</span></td>
+        </tr></tbody>
+      </table>
+    </div></div>
+    <div id="ev-drill" style="display:none;" class="drill-panel"></div>
+  </div>
+
+  <!-- TAB: AUDITORIA -->
+  <div class="tab-panel" id="tab-auditoria">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch;">
+
+      <!-- Pie chart card -->
+      <div class="card" style="display:flex;flex-direction:column;">
+        <div class="card-title">Distribuição por Auditoria Contratada</div>
+        <div class="card-sub">Total de fundos por firma — Controle de Contratação Auditoria 2026</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:32px;margin-top:12px;flex-wrap:wrap;">
+          <div style="position:relative;flex-shrink:0;">
+            <svg id="pie-svg" width="320" height="320" viewBox="0 0 320 320"><path d="M 160 85 L 160 30 A 130 130 0 0 1 288.09622162800315 182.16659659554193 L 233.901666323848 172.78842111281264 A 75 75 0 0 0 160 85 Z" fill="#003a7d" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('RONSKOSKI',18,28.1)" onmouseleave="pieHoverOut(64)"></path><text x="238.4145861991032" y="93.98937455815607" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">28.1%</text><path d="M 233.5588960302423 174.6317741512096 L 287.50208645242 185.36174186209666 A 130 130 0 0 1 175.97225996462265 289.01506466929555 L 169.21476536420536 234.43176807843975 A 75 75 0 0 0 233.5588960302423 174.6317741512096 Z" fill="#008dff" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('BGM',13,20.3)" onmouseleave="pieHoverOut(64)"></path><text x="229.7787341307121" y="235.08114452454353" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">20.3%</text><path d="M 167.35128552471704 234.63885450041477 L 172.74222824284288 289.37401446738556 A 130 130 0 0 1 46.91794163230709 224.12837184371432 L 94.76035094171563 196.99713760214289 A 75 75 0 0 0 167.35128552471704 234.63885450041477 Z" fill="#ff73b6" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('CONFIANCE',12,18.8)" onmouseleave="pieHoverOut(64)"></path><text x="112.81554147695772" y="250.99382876814946" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">18.8%</text><path d="M 93.85590517387338 195.35475526194983 L 45.350235634713854 221.28157578737972 A 130 130 0 0 1 31.90377837199682 137.83340340445812 L 86.09833367615201 147.2115788871874 A 75 75 0 0 0 93.85590517387338 195.35475526194983 Z" fill="#c701ff" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('CLA',7,10.9)" onmouseleave="pieHoverOut(64)"></path><text x="58.80532229013383" y="176.30604805574654" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">10.9%</text><path d="M 86.4411039697577 145.36822584879042 L 32.497913547580026 134.63825813790336 A 130 130 0 0 1 57.47847956526104 80.06666622897926 L 100.85296897995829 113.88461513210342 A 75 75 0 0 0 86.4411039697577 145.36822584879042 Z" fill="#4ecb8d" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('DELOITTE',5,7.8)" onmouseleave="pieHoverOut(64)"></path><text x="66.80054563953662" y="117.33723277948437" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">7.8%</text><path d="M 102.02421599779473 112.42050368772661 L 59.50864106284418 77.52887305872612 A 130 130 0 0 1 75.04262165826016 61.60160638862811 L 110.98612787976548 103.2316959934393 A 75 75 0 0 0 102.02421599779473 112.42050368772661 Z" fill="#ff9d3a" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('ECOVIS',2,3.1)" onmouseleave="pieHoverOut(64)"></path><text x="86.62126026283582" y="88.43317420350736" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">3.1%</text><path d="M 112.42050368772655 102.02421599779476 L 77.52887305872603 59.508641062844234 A 130 130 0 0 1 85.09644381099837 53.74814227392976 L 116.78640989096058 98.70085131188256 A 75 75 0 0 0 112.42050368772655 102.02421599779476 Z" fill="#f9e858" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('FORVS MAZARS',1,1.6)" onmouseleave="pieHoverOut(64)"></path><text x="97.9165086255615" y="78.44087973279738" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">1.6%</text><path d="M 118.33223252352977 97.63977907730914 L 87.77586970745162 51.908950400669184 A 130 130 0 0 1 95.87162815628555 46.91794163230715 L 123.00286239785706 94.76035094171566 A 75 75 0 0 0 118.33223252352977 97.63977907730914 Z" fill="#d83034" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('GT',1,1.6)" onmouseleave="pieHoverOut(64)"></path><text x="106.2096493420596" y="72.74836290306175" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">1.6%</text><path d="M 124.6452447380501 93.85590517387341 L 98.71842421262016 45.35023563471391 A 130 130 0 0 1 119.16505202065963 36.57995696190767 L 136.44137616576518 88.7961290164852 A 75 75 0 0 0 124.6452447380501 93.85590517387341 Z" fill="#00b4d8" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('NEXT',2,3.1)" onmouseleave="pieHoverOut(64)"></path><text x="119.59432277463759" y="65.80004645457711" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">3.1%</text><path d="M 138.22864920591525 88.22947482008435 L 122.26299195691978 35.59775635481289 A 130 130 0 0 1 156.75033853108732 30.040622884158665 L 158.12519530639653 85.0234362793223 A 75 75 0 0 0 138.22864920591525 88.22947482008435 Z" fill="#845ec2" stroke="white" stroke-width="2" style="transition:opacity .2s;cursor:default;" onmouseenter="pieHover('PWC',3,4.7)" onmouseleave="pieHoverOut(64)"></path><text x="143.6939519442534" y="58.80532229013383" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">4.7%</text><circle cx="160" cy="160" r="75" fill="white"></circle></svg>
+            <div id="pie-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;">
+              <div style="font-size:26px;font-weight:800;color:var(--text);" id="pie-center-val">64</div>
+              <div style="font-size:10px;color:var(--text-faint);font-family:Inter,sans-serif;margin-top:2px;" id="pie-center-lbl">fundos</div>
+            </div>
+          </div>
+          <!-- Legend -->
+          <div id="pie-legend" style="display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#003a7d;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">RONSKOSKI</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">18</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#008dff;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">BGM</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">13</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#ff73b6;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">CONFIANCE</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">12</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#c701ff;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">CLA</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">7</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#4ecb8d;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">DELOITTE</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">5</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#ff9d3a;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">ECOVIS</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">2</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#f9e858;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">FORVS MAZARS</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">1</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#d83034;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">GT</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">1</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#00b4d8;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">NEXT</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">2</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:#845ec2;"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">PWC</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">3</span>
+      </div></div>
+        </div>
+      </div>
+
+      <!-- Summary table card -->
+      <div class="card">
+        <div class="card-title">Fundos por Auditoria e Mês</div>
+        <div class="card-sub">Breakdown mensal por firma de auditoria</div>
+        <div id="aud-summary" style="margin-top:12px;">
+    <div style="overflow-x:auto;">
+
+      <!-- Section: Exercício 2026 -->
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-faint);margin-bottom:6px;margin-top:4px;">Exercício Social 2026</div>
+      <table class="data-tbl" style="margin-bottom:20px;">
+        <thead><tr>
+          <th>Mês</th>
+          <th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#003a7d;display:inline-block;"></span>RONSKOSKI</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#008dff;display:inline-block;"></span>BGM</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#ff73b6;display:inline-block;"></span>CONFIANCE</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#c701ff;display:inline-block;"></span>CLA</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#4ecb8d;display:inline-block;"></span>DELOITTE</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#ff9d3a;display:inline-block;"></span>ECOVIS</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#f9e858;display:inline-block;"></span>FORVS MAZARS</span></th>
+          <th>Total</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Jan/26</td>
+              <td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">3</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">5</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Fev/26</td>
+              <td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">2</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Mar/26</td>
+              <td style="text-align:center;font-weight:600;">2</td><td style="text-align:center;font-weight:600;">4</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">7</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Abr/26</td>
+              <td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">4</td><td style="text-align:center;font-weight:600;">6</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">12</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Mai/26</td>
+              <td style="text-align:center;font-weight:600;">3</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">3</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">7</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Jun/26</td>
+              <td style="text-align:center;font-weight:600;">6</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">2</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">11</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Jul/26</td>
+              <td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">1</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Ago/26</td>
+              <td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">1</td>
+            </tr>
+          <tr style="border-top:2px solid var(--border2);background:#f8fafc;">
+            <td style="font-weight:700;color:var(--text);font-family:Inter,sans-serif;">Total</td>
+            <td style="font-weight:700;text-align:center;color:#003a7d;">14</td><td style="font-weight:700;text-align:center;color:#008dff;">12</td><td style="font-weight:700;text-align:center;color:#ff73b6;">11</td><td style="font-weight:700;text-align:center;color:#c701ff;">1</td><td style="font-weight:700;text-align:center;color:#4ecb8d;">5</td><td style="font-weight:700;text-align:center;color:#ff9d3a;">2</td><td style="font-weight:700;text-align:center;color:#f9e858;">1</td>
+            <td style="font-weight:800;text-align:center;color:var(--text);">46</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section: Eventos 2026 -->
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-faint);margin-bottom:6px;">Eventos 2026</div>
+      <table class="data-tbl">
+        <thead><tr>
+          <th>Mês Base</th>
+          <th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#003a7d;display:inline-block;"></span>RONSKOSKI</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#008dff;display:inline-block;"></span>BGM</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#ff73b6;display:inline-block;"></span>CONFIANCE</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#c701ff;display:inline-block;"></span>CLA</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#d83034;display:inline-block;"></span>GT</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#00b4d8;display:inline-block;"></span>NEXT</span></th><th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:#845ec2;display:inline-block;"></span>PWC</span></th>
+          <th>Total</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Jan/26</td>
+              <td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">2</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">2</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">6</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Fev/26</td>
+              <td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">2</td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">2</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Mar/26</td>
+              <td style="text-align:center;font-weight:600;">2</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">1</td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">4</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">Abr/26</td>
+              <td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;font-weight:600;">1</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">3</td>
+            </tr><tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">A definir</td>
+              <td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;font-weight:600;">3</td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td><td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>
+              <td style="font-weight:700;color:var(--text);text-align:center;">3</td>
+            </tr>
+          <tr style="border-top:2px solid var(--border2);background:#f8fafc;">
+            <td style="font-weight:700;color:var(--text);font-family:Inter,sans-serif;">Total</td>
+            <td style="font-weight:700;text-align:center;color:#003a7d;">4</td><td style="font-weight:700;text-align:center;color:#008dff;">1</td><td style="font-weight:700;text-align:center;color:#ff73b6;">1</td><td style="font-weight:700;text-align:center;color:#c701ff;">6</td><td style="font-weight:700;text-align:center;color:#d83034;">1</td><td style="font-weight:700;text-align:center;color:#00b4d8;">2</td><td style="font-weight:700;text-align:center;color:#845ec2;">3</td>
+            <td style="font-weight:800;text-align:center;color:var(--text);">18</td>
+          </tr>
+        </tbody>
+      </table>
+    </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TAB: AUDITORIA (closing tag handled above) -->
+
+  <!-- TAB: UPLOAD -->
+  <div class="tab-panel active" id="tab-upload">
+    <!-- Download card: always visible -->
+    <div class="card" style="max-width:720px;margin:0 auto 16px;">
+      <div class="card-title" style="margin-bottom:4px;">⬇ Exportar Dashboard</div>
+      <div class="card-sub" style="margin-bottom:16px;">Baixe o HTML com os dados atuais já embutidos para publicar no GitHub Pages.</div>
+      <button onclick="downloadUpdatedHTML()" style="width:100%;padding:13px;background:#193c32;color:#f3f2f3;border:none;border-radius:var(--radius-sm);font-family:Inter,sans-serif;font-size:12px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;justify-content:center;gap:8px;">
+        ⬇ Baixar HTML Atualizado
+      </button>
+      <div style="font-size:10px;color:var(--text-faint);margin-top:8px;text-align:center;font-family:Inter,sans-serif;">
+        Basta substituir o arquivo no GitHub — os dados ficam embutidos no HTML.
+      </div>
+    </div>
+
+    <div class="card" style="max-width:720px;margin:0 auto;">
+      <div class="card-title" style="margin-bottom:6px;">Atualizar Base de Dados</div>
+      <div class="card-sub" style="margin-bottom:24px;">Faça o upload das planilhas atualizadas para refletir as informações mais recentes no dashboard.</div>
+
+      <!-- DFs Upload -->
+      <div style="margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;">
+          📄 Controle de DFs
+        </div>
+        <div class="upload-zone" id="zone-dfs" onclick="document.getElementById('file-dfs').click()" ondragover="dragOver(event,'zone-dfs')" ondragleave="dragLeave('zone-dfs')" ondrop="dropFile(event,'dfs')">
+          <div class="upload-icon">📊</div>
+          <div class="upload-title">Controle_de_DFs.xlsx</div>
+          <div class="upload-sub">Arraste o arquivo aqui ou clique para selecionar</div>
+          <div class="upload-sub" style="margin-top:6px;font-size:11px;color:var(--text-faint);">Sheets utilizadas:</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;text-align:left;max-width:360px;margin-left:auto;margin-right:auto;">
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><strong>Exercício 2025</strong></div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;"></div><strong>Eventos 2025</strong></div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:6px;height:6px;border-radius:50%;background:#60a5fa;flex-shrink:0;"></div><strong>Exercício 2026</strong></div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted);"><div style="width:6px;height:6px;border-radius:50%;background:#60a5fa;flex-shrink:0;"></div><strong>Eventos 2026</strong></div>
+          </div>
+          <input type="file" id="file-dfs" accept=".xlsx,.xls" style="display:none" onchange="handleFile(event,'dfs')">
+        </div>
+        <div id="status-dfs" style="margin-top:8px;font-size:12px;min-height:18px;"></div>
+      </div>
+
+      <!-- Auditoria Upload -->
+      <div style="margin-bottom:20px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.6px;margin-bottom:10px;">
+          📋 Controle de Contratação de Auditoria
+        </div>
+        <div class="upload-zone" id="zone-aud" onclick="document.getElementById('file-aud').click()" ondragover="dragOver(event,'zone-aud')" ondragleave="dragLeave('zone-aud')" ondrop="dropFile(event,'aud')">
+          <div class="upload-icon">🏢</div>
+          <div class="upload-title">Controle_de_contratação_auditoria.xlsx</div>
+          <div class="upload-sub">Arraste o arquivo aqui ou clique para selecionar</div>
+          <div class="upload-sub" style="margin-top:6px;font-size:11px;color:var(--text-faint);">Sheet utilizada: <strong>Auditoria 2026</strong></div>
+          <input type="file" id="file-aud" accept=".xlsx,.xls" style="display:none" onchange="handleFile(event,'aud')">
+        </div>
+        <div id="status-aud" style="margin-top:8px;font-size:12px;min-height:18px;"></div>
+      </div>
+
+      <!-- Apply button -->
+      <button id="btn-apply" onclick="applyUploads()" style="display: none; width: 100%; padding: 12px; background: var(--green); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: var(--radius-sm); font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; margin-top: 4px;">
+        ✓ Aplicar e Atualizar Dashboard
+      </button>
+      <div id="status-apply" style="margin-top:10px;font-size:12px;text-align:center;min-height:18px;"><div style="color:var(--green);margin-bottom:4px;">✓ <strong>Controle de DFs.xlsx</strong>: 133 fundos Ex.2025 · 39 eventos 2025 · 35 fundos Ex.2026 · 16 eventos 2026</div><div style="color:var(--text-faint);font-size:11px;margin-top:6px;">Dashboard atualizado com sucesso ✓</div></div>
+
+
+    </div>
+  </div>
+
+</main>
+
+<footer>Kanastra · Dashboard Demonstrações Financeiras 2026 · Atualizado em 28/05/2026</footer>
+
+<script>
+// ─── CONSTANTS ────────────────────────────────────────────────────────────
+const TODAY = new Date('2026-05-28');
+const DT30  = new Date('2026-06-27');
+const DT60  = new Date('2026-07-27');
+const DT90  = new Date('2026-08-26');
+
+const MES_NOME = {1:'Jan',2:'Fev',3:'Mar',4:'Abr',5:'Mai',6:'Jun',7:'Jul',8:'Ago',9:'Set',10:'Out',11:'Nov',12:'Dez'};
+
+const exercicioFunds2025 = [
+  {nome:"MULTIBANK",analista:"—",exSocial:1,prazoDate:"2025-05-01",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"PRIMEMAX FUNDO DE INVESTIMENTO EM DIREITO CREDITÓRIO FINANCEIRO",analista:"—",exSocial:1,prazoDate:"2025-05-01",status:"Publicada",auditoria:"CONFIANCE",statusPrazo:"DF OK"},
+  {nome:"J17 ORION",analista:"—",exSocial:2,prazoDate:"2025-05-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"KYR CAPITAL",analista:"—",exSocial:2,prazoDate:"2025-07-28",status:"Publicada",auditoria:"UHY",statusPrazo:"DF OK"},
+  {nome:"TRADEMASTER III FIDC - RECEBÍVEIS COMERCIAIS",analista:"—",exSocial:2,prazoDate:"2025-05-29",status:"Publicada",auditoria:"KPMG",statusPrazo:"DF OK"},
+  {nome:"CPV PS DUPLICATA",analista:"—",exSocial:3,prazoDate:"2025-06-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"FACTIA",analista:"—",exSocial:3,prazoDate:"2025-06-29",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PICPAY FGTS",analista:"—",exSocial:3,prazoDate:"2025-06-29",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"},
+  {nome:"GAMA. LIMITADA",analista:"—",exSocial:3,prazoDate:"2025-06-29",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"},
+  {nome:"SETTORE CRÉDITO PRIVADO",analista:"—",exSocial:3,prazoDate:"2025-06-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"ALVORADA IV",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"MAZARS",statusPrazo:"DF OK"},
+  {nome:"BOLSA DE CRÉDITOS",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"CONFIANCE",statusPrazo:"DF OK"},
+  {nome:"CAPIA",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"CLEAM CAPITAL BANK",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"CONFIANCE",statusPrazo:"DF OK"},
+  {nome:"CREDALUGA",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"GRANA TECH CRÉDITO POPULAR",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"UNAVANTI",analista:"—",exSocial:4,prazoDate:"2025-07-29",status:"Publicada",auditoria:"AUDIFACTOR",statusPrazo:"DF OK"},
+  {nome:"FATURE",analista:"—",exSocial:5,prazoDate:"2025-08-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO",analista:"—",exSocial:5,prazoDate:"2025-08-29",status:"Publicada",auditoria:"BDO",statusPrazo:"DF OK"},
+  {nome:"MACAÚBAS",analista:"Larissa Lourenço",exSocial:5,prazoDate:"2025-10-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"PLETORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"—",exSocial:5,prazoDate:"2025-08-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"ATICCA DIGITAL",analista:"—",exSocial:5,prazoDate:"2025-08-29",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"911 BANK MULTI ESTRATÉGIA",analista:"Jonathas",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"AV BANCO",analista:"Jonathas",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"ALBATROZ",analista:"Jonathas",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"CONDOLIVRE",analista:"Jonathas",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"EOS",analista:"Daniela",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"HEALTH MERCANTIL",analista:"Daniela",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"MARCA I",analista:"Daniela",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"NOBEL II",analista:"Daniela",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"OPI GOOROO",analista:"Henrique",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"SILVER STONE",analista:"Henrique",exSocial:6,prazoDate:"2025-09-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"CLM",analista:"Jonathas",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"CLM II",analista:"Jonathas",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"FORCE CAPITAL",analista:"Larissa Lourenço",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"IGAPORÃ FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO MULTIMERCADO CRÉDITO PRIVADO LIVRE",analista:"Larissa Lourenço",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"JADE",analista:"Henrique",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"SIRIUS IV",analista:"Larissa Lourenço",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"YUNUS NEGOCIOS SOCIAIS FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"Larissa Lourenço",exSocial:7,prazoDate:"2025-10-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"AGROSS",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"AID BANK",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"AKIREDE",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"ALPS BANK",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"ATIVA",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"DC1",analista:"Larissa Novais",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"D'ORO CAPITAL",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"NETMONEY",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"TESLA",analista:"Larissa Novais",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"URBANO",analista:"Larissa Novais",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"SIMPLIC",analista:"Larissa Lourenço",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"B4 TRUST",analista:"Henrique",exSocial:8,prazoDate:"2025-11-29",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"ANTARES",analista:"Larissa Lourenço",exSocial:9,prazoDate:"2025-12-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"LABRADOR",analista:"Larissa Lourenço",exSocial:9,prazoDate:"2025-12-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"PRIME",analista:"Larissa Novais",exSocial:9,prazoDate:"2025-12-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"SEJA",analista:"Larissa Novais",exSocial:9,prazoDate:"2025-12-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"TRUST",analista:"Larissa Lourenço",exSocial:9,prazoDate:"2025-12-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"COINVEST FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"Larissa Novais",exSocial:10,prazoDate:"2026-01-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"COINVEST",analista:"Larissa Novais",exSocial:10,prazoDate:"2026-01-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"JASPE",analista:"Larissa Lourenço",exSocial:10,prazoDate:"2026-01-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"RUBI",analista:"Larissa Lourenço",exSocial:10,prazoDate:"2026-01-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AMOVERI",analista:"Larissa Novais",exSocial:10,prazoDate:"2026-01-29",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"ALT LEGAL CLAIMS",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"BANCOR",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"CORUJA I",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"GT",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS AUTO X",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS AUTO XI",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"OKLAHOMA",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"PBG SUPPLIERS - FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIO",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"WALL FUNDO DE INVESTIMENTO  EM DIREITOS CREDITÓRIOS",analista:"Larissa Novais",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ASAAS III",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"NEXT",statusPrazo:"DF OK"},
+  {nome:"SIG I FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS.",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG II FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG III FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG IV FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG V FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG VI FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"SIG VII FC FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CHRONOS",analista:"Larissa Lourenço",exSocial:11,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS  TEMPUS III",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-02-28",status:"Publicada",auditoria:"PWC",statusPrazo:"DF OK"},
+  {nome:"AGROCANA",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"GT",statusPrazo:"DF OK"},
+  {nome:"ALTINVEST MASTER",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"AMG INVESTMENT FUND",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Deloitte",statusPrazo:"DF OK"},
+  {nome:"ÂNGULO RETORNO ABSOLUTO 1 -",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"ARCO CAPITAL",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"BLIPS",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"CEDRO -",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"CITRINO TEMPO CAPTOR (CTC)",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"CITRINO TEMPO CAPTOR II",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"COHAB MINAS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"COLIBRI I FUNDO INVESTIMENTO EM PARTICIPAÇÕES - CAPITAL SEMENTE",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"DUCATO CAPITAL",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"FACIO",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CONSORCIEI ZERO",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"GT",statusPrazo:"DF OK"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS ALBAUGH I",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"GOLDEN TREE",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"GUAJUVIRA",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"HB CAPITAL",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"INOVA CREDTECH III FIDC SEGMENTO MULTICARTEIRA",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"BDO",statusPrazo:"DF OK"},
+  {nome:"IS GREEN SOLFÁCIL VI",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Deloitte",statusPrazo:"DF OK"},
+  {nome:"J17 FGTS",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"JUSINVEST I - FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"KINASE I",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"MAKENA",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"METROPOLITANA ATIVOS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"MOBILITAS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"NORDE",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"ORIZ JUS III",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Deloitte",statusPrazo:"DF OK"},
+  {nome:"PAGALEVE",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"PRIMATO",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"RECOVERY LEX",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"SDA",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"SEVEN SUMMITS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"SOLFARMA",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"SONAR PRECATÓRIOS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"TCG IRON I",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"WCAPITAL",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"BRASPRESS URBANO 2",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"KVIV VENTURES II",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"AMPLIC",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"THIRDROCK CAPITAL",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"HURST PARTNERS FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"ORIZ JUS V",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"RSM",statusPrazo:"DF OK"},
+  {nome:"KANOA CAPITAL I",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"ORIZ JUS CPS",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"RSM",statusPrazo:"DF OK"},
+  {nome:"NX BOATS",analista:"Luiz",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"SIM",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"K I",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"GCRED",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"},
+  {nome:"ANTALLI",analista:"Larissa Novais",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"},
+  {nome:"CONFRAPAR K II",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-05-30",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"FIBRA RUBICON",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"},
+  {nome:"MARANATA",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"BGM",statusPrazo:"DF OK"},
+  {nome:"ORIZ JURI LC",analista:"Larissa Lourenço",exSocial:12,prazoDate:"2026-03-31",status:"Publicada",auditoria:"Confirmar",statusPrazo:"DF OK"}
+];
+
+// ─── EXERCÍCIO 2026 DATA ──────────────────────────────────────────────────
+const exercicioFunds = [
+  {nome:"MULTIBANK",analista:"Contabifi",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"FRAGATA",analista:"Contabifi",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"BGM",statusPrazo:"DF OK"},
+  {nome:"HCAM PETRO",analista:"Contabifi",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"BGM",statusPrazo:"DF OK"},
+  {nome:"ONCRED",analista:"Contabifi",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"BGM",statusPrazo:"DF OK"},
+  {nome:"LIVEN",analista:"Contabifi",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"Confiance",statusPrazo:"DF OK"},
+  {nome:"EXPOENTE MERCANTIL",analista:"Larissa Lourenço",exSocial:1,prazoDate:"2026-05-01",status:"Publicada",auditoria:"< 90dias",statusPrazo:"DF OK"},
+  {nome:"J17 ORION",analista:"Larissa Novais",exSocial:2,prazoDate:"2026-05-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"AGA",analista:"Contabifi",exSocial:2,prazoDate:"2026-05-29",status:"Publicada",auditoria:"CLA",statusPrazo:"DF OK"},
+  {nome:"CPV PS DUPLICATA",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Publicada",auditoria:"Ronskoski",statusPrazo:"DF OK"},
+  {nome:"FACTIA",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 30 dias"},
+  {nome:"SETTORE CRÉDITO PRIVADO",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 30 dias"},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PICPAY FGTS",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"CLA",statusPrazo:"Menos de 30 dias"},
+  {nome:"GAMA. LIMITADA",analista:"Larissa Novais",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 30 dias"},
+  {nome:"BANMINAS",analista:"Larissa Novais",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Next",statusPrazo:"Menos de 30 dias"},
+  {nome:"SQUARE",analista:"Larissa Lourenço",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 30 dias"},
+  {nome:"CREDIT PARTNERS FUNDO DE INVESTIMENTO EM DIREITO CREDITÓRIOS",analista:"Jow",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Confiance",statusPrazo:"Menos de 30 dias"},
+  {nome:"UNAVANTI",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"ALVORADA IV",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"FORVS MAZARS",statusPrazo:"Menos de 60 dias"},
+  {nome:"BOLSA DE CRÉDITOS",analista:"LUIZ",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CREDALUGA",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CLEAM CAPITAL BANK",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CAPIA",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"GRANA TECH CRÉDITO POPULAR",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"VIRTUS",analista:"LUIZ",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"BAY",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"YELLOW CAPITAL I",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"BRAEVO",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"TRIO",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"PLETORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 90 dias"},
+  {nome:"FATURE",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 90 dias"},
+  {nome:"INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 90 dias"},
+  {nome:"MACAÚBAS",analista:"Contabifi",exSocial:5,prazoDate:"2026-10-28",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Tarefa futura"},
+  {nome:"ATICCA DIGITAL",analista:"Larissa Lourenço",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 90 dias"},
+  {nome:"SYMA",analista:"Larissa Lourenço",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 90 dias"},
+  {nome:"FIBRA GOLEM D360 FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO FINANCEIRO MULTIMERCADO CR",analista:"Larissa Lourenço",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 90 dias"}
+];
+
+const eventosFunds2025 = [
+  {nome:"CLM",analista:"Henrique",mesBase:"Abr/25",dataEvento:"30/04/2025",auditoria:"NEXT",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:7},
+  {nome:"BTF",analista:"Jonathas",mesBase:"Jul/25",dataEvento:"30/07/2025",auditoria:"NEXT",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:8},
+  {nome:"JASPE",analista:"Henrique",mesBase:"Jun/25",dataEvento:"19/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"ÔNIX",analista:"Henrique",mesBase:"Jun/25",dataEvento:"12/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"BERILO",analista:"Henrique",mesBase:"Jun/25",dataEvento:"18/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"FAÍSCA",analista:"Henrique",mesBase:"Jun/25",dataEvento:"19/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"QUARTZO",analista:"Henrique",mesBase:"Jun/25",dataEvento:"19/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"TURQUESA",analista:"Henrique",mesBase:"Jun/25",dataEvento:"12/06/2025",auditoria:"NEXT",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"TOP 2025",analista:"Larissa Novais",mesBase:"Set/25",dataEvento:"02/09/2025",auditoria:"PWC",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"01/10/2025",auditoria:"PWC",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 A",analista:"Larissa Novais",mesBase:"Set/25",dataEvento:"05/09/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 B",analista:"Larissa Novais",mesBase:"Set/25",dataEvento:"09/09/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 C",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"03/10/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 D",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"03/10/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 E",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"03/10/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 F",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"03/10/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 G",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"03/10/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"ARACUA",analista:"—",mesBase:"Jun/25",dataEvento:"30/06/2025",auditoria:"Ronskoski",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:1},
+  {nome:"ZERMATT",analista:"—",mesBase:"Jun/25",dataEvento:"30/06/2025",auditoria:"Ronskoski",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:1},
+  {nome:"KYR CAPITAL",analista:"Luiz",mesBase:"Out/25",dataEvento:"23/10/2025",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:2},
+  {nome:"BEMFÁCIL DIGITAL",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"23/10/2025",auditoria:"CLA",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"PJBANK PAGAMENTOS",analista:"Larissa Lourenço",mesBase:"Nov/25",dataEvento:"14/11/2025",auditoria:"Deloitte",tipoEvento:"Evento",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"GHI CAPITAL",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"14/10/2025",auditoria:"CLA",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:4},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS QUASAR CB",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"23/10/2025",auditoria:"Confiance",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"SALVADOR CAPITAL",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"31/10/2025",auditoria:"CLA",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:1},
+  {nome:"JADE",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"29/10/2025",auditoria:"CLA",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"JASPE",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"29/10/2025",auditoria:"CLA",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"TOP 2025",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"17/10/2025",auditoria:"PWC",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025",analista:"Larissa Novais",mesBase:"Out/25",dataEvento:"20/10/2025",auditoria:"PWC",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"TOP 2025 H",analista:"Larissa Novais",mesBase:"Nov/25",dataEvento:"10/11/2025",auditoria:"PWC",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"RUBI",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"29/10/2025",auditoria:"Next",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"TURQUESA",analista:"Larissa Lourenço",mesBase:"Out/25",dataEvento:"29/10/2025",auditoria:"Net",tipoEvento:"Incorporação",statusPrazo:"DF OK",status:"Publicada",exSocial:10},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS AUTO GWM",analista:"Luiz",mesBase:"Nov/25",dataEvento:"03/11/2025",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"LAVOURA FIAGRO - DIREITOS CREDITÓRIOS",analista:"Larissa Novais",mesBase:"Nov/25",dataEvento:"21/11/2025",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:4},
+  {nome:"CUB",analista:"Larissa Lourenço",mesBase:"Dez/25",dataEvento:"04/12/2025",auditoria:"Confiance",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"NC 2025",analista:"Larissa Novais",mesBase:"Dez/25",dataEvento:"04/12/2025",auditoria:"PWC",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"NC 2025",analista:"Larissa Novais",mesBase:"Dez/25",dataEvento:"08/12/2025",auditoria:"PWC",tipoEvento:"Cisão",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS  TEMPUS III",analista:"Larissa Novais",mesBase:"Dez/25",dataEvento:"19/12/2025",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:11},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS CONSIGNADO",analista:"Larissa Novais",mesBase:"Dez/25",dataEvento:"19/12/2025",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:11}
+];
+
+// ─── EVENTOS 2026 DATA ────────────────────────────────────────────────────
+const eventosFunds = [
+  {nome:"AGROSS",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"12/01/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:8},
+  {nome:"JASPE",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"16/01/2026",auditoria:"NEXT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
+  {nome:"RUBI",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"16/01/2026",auditoria:"NEXT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
+  {nome:"TRADEMASTER III FIDC - RECEBÍVEIS COMERCIAIS",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"20/01/2026",auditoria:"GT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:2},
+  {nome:"NOBEL II",analista:"Jow- OK",mesBase:"Jan/26",dataEvento:"26/01/2026",auditoria:"Ronskoski",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:6},
+  {nome:"CONDOLIVRE",analista:"LN- OK",mesBase:"Fev/26",dataEvento:"09/02/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:6},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS TEMPUS II - RESPONSABILIDADE",analista:"Jow",mesBase:"Fev/26",dataEvento:"11/02/2026",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
+  {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS  TEMPUS III",analista:"Larissa Novais",mesBase:"Fev/26",dataEvento:"11/02/2026",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
+  {nome:"FACIO",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"06/03/2026",auditoria:"Confirmar",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
+  {nome:"ALT LEGAL CLAIMS",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"20/03/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:11},
+  {nome:"ALTINVEST MASTER",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"20/03/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
+  {nome:"SERCARD MULTIESTRATÉGIA",analista:"Larissa Lourenço",mesBase:"Mar/26",dataEvento:"03/03/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:8},
+  {nome:"SIRIUS IV",analista:"Larissa Lourenço",mesBase:"Abr/26",dataEvento:"02/04/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:7},
+  {nome:"MARANATA",analista:"Larissa Lourenço",mesBase:"Abr/26",dataEvento:"23/04/2026",auditoria:"BGM",tipoEvento:"Transf-out",statusPrazo:"Menos de 30 dias",status:"Pendente",exSocial:12},
+  {nome:"ACÁCIA(NC 2025 II)",analista:"Larissa Lourenço",mesBase:"Jun/26",dataEvento:"02/06/2026",auditoria:"PWC",tipoEvento:"Encerramento",statusPrazo:"Menos de 60 dias",status:"Pendente",exSocial:6},
+  {nome:"CANADA INVEST",analista:"Confirmar",mesBase:"Jun/26",dataEvento:"10/06/2026",auditoria:"Confirmar",tipoEvento:"Transf-out",statusPrazo:"Menos de 60 dias",status:"Pendente",exSocial:7}
+];
+
+// ─── AUDITORIA 2026 DATA ──────────────────────────────────────────────────
+const auditoriaMonths = [
+  {mes:"Jan/26",RONSKOSKI:1,BGM:3,CONFIANCE:1,CLA:0,DELOITTE:0,ECOVIS:0,"FORVS MAZARS":0},
+  {mes:"Fev/26",RONSKOSKI:1,BGM:0,CONFIANCE:0,CLA:1,DELOITTE:0,ECOVIS:0,"FORVS MAZARS":0},
+  {mes:"Mar/26",RONSKOSKI:2,BGM:4,CONFIANCE:1,CLA:0,DELOITTE:0,ECOVIS:0,"FORVS MAZARS":0},
+  {mes:"Abr/26",RONSKOSKI:0,BGM:4,CONFIANCE:6,CLA:0,DELOITTE:1,ECOVIS:0,"FORVS MAZARS":1},
+  {mes:"Mai/26",RONSKOSKI:3,BGM:0,CONFIANCE:1,CLA:0,DELOITTE:3,ECOVIS:0,"FORVS MAZARS":0},
+  {mes:"Jun/26",RONSKOSKI:6,BGM:1,CONFIANCE:1,CLA:0,DELOITTE:1,ECOVIS:2,"FORVS MAZARS":0},
+  {mes:"Jul/26",RONSKOSKI:1,BGM:0,CONFIANCE:0,CLA:0,DELOITTE:0,ECOVIS:0,"FORVS MAZARS":0},
+  {mes:"Ago/26",RONSKOSKI:0,BGM:0,CONFIANCE:1,CLA:0,DELOITTE:0,ECOVIS:0,"FORVS MAZARS":0},
+];
+const AUDITORES    = ["RONSKOSKI","BGM","CONFIANCE","CLA","DELOITTE","ECOVIS","FORVS MAZARS","GT","NEXT","PWC"];
+const AUDITORES_EV = ["RONSKOSKI","BGM","CONFIANCE","CLA","GT","NEXT","PWC"];
+const AUD_COLORS = {RONSKOSKI:"#003a7d",BGM:"#008dff",CONFIANCE:"#ff73b6",CLA:"#c701ff",DELOITTE:"#4ecb8d",ECOVIS:"#ff9d3a","FORVS MAZARS":"#f9e858",GT:"#d83034",NEXT:"#00b4d8",PWC:"#845ec2"};
+
+const auditoriaEventosMeses = [
+  {mes:"Jan/26", RONSKOSKI:1, BGM:0, CONFIANCE:0, CLA:2, GT:1, NEXT:2, PWC:0},
+  {mes:"Fev/26", RONSKOSKI:0, BGM:0, CONFIANCE:0, CLA:0, GT:0, NEXT:0, PWC:2},
+  {mes:"Mar/26", RONSKOSKI:2, BGM:0, CONFIANCE:0, CLA:1, GT:0, NEXT:0, PWC:1},
+  {mes:"Abr/26", RONSKOSKI:1, BGM:1, CONFIANCE:1, CLA:0, GT:0, NEXT:0, PWC:0},
+  {mes:"A definir",    RONSKOSKI:0, BGM:0, CONFIANCE:0, CLA:3, GT:0, NEXT:0, PWC:0},
+];
+
+const EX_MONTHS  = [{mes:"Jan/26",exSocial:1},{mes:"Fev/26",exSocial:2},{mes:"Mar/26",exSocial:3},{mes:"Abr/26",exSocial:4},{mes:"Mai/26",exSocial:5},{mes:"Jun/26",exSocial:6},{mes:"Jul/26",exSocial:7},{mes:"Ago/26",exSocial:8},{mes:"Set/26",exSocial:9},{mes:"Out/26",exSocial:10},{mes:"Nov/26",exSocial:11},{mes:"Dez/26",exSocial:12}];
+const EV_MONTHS_2026 = ["Jan/26","Fev/26","Mar/26","Abr/26","Mai/26","Jun/26","Jul/26","Ago/26","Set/26","Out/26","Nov/26","Dez/26"];
+const EV_MONTHS_2025 = ["Abr/25","Jun/25","Jul/25","Set/25","Out/25","Nov/25","Dez/25"];
+const getEvMonths = () => currentAno === 2025 ? EV_MONTHS_2025 : EV_MONTHS_2026;
+
+// ─── STATE ────────────────────────────────────────────────────────────────
+let currentAno = 2026;
+let selectedEx = null;
+let selectedEv = null;
+
+// ─── ANO FILTER ───────────────────────────────────────────────────────────
+function setAno(ano, btn) {
+  currentAno = ano;
+  selectedEx = null;
+  selectedEv = null;
+  currentCardDrill = null;
+  document.getElementById("card-drill").style.display = "none";
+  document.querySelectorAll("[id^='yr-']").forEach(c => c.classList.remove("active"));
+  btn.classList.add("active");
+  const total = ano === 2025 ? 133 : 32;
+  const ev    = ano === 2025 ? "· sem eventos" : "· Exercício & Eventos";
+  document.getElementById("headerSub").textContent =
+    `${total} fundos ${ev} ${ano} · 28/05/2026`;
+  updateAll();
+}
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────
+const filt = (funds, year) => {
+  const yr = year !== undefined ? year : currentAno;
+  if (yr === 2025) {
+    if (funds === exercicioFunds) return exercicioFunds2025;
+    if (funds === eventosFunds)   return eventosFunds2025;
+    return [];
+  }
+  if (yr === 2026) return funds;
+  return [];
+};
+
+// Format YYYY-MM-DD → DD/MM/YYYY
+function fmtDate(s) {
+  if (!s || s === "A confirmar") return s;
+  const parts = s.split("-");
+  if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+  return s;
+}
+const setText = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+const d = s => s && s !== "A confirmar" ? new Date(s) : null;
+
+function statusPill(status) {
+  if (status === "Publicada") return '<span class="pill-pub">✓ Publicada</span>';
+  if (status === "Pendente")  return '<span class="pill-pend">⏳ Pendente</span>';
+  if (status === "Atrasada")  return '<span class="pill-atr">⚠ Atrasada</span>';
+  return '<span class="pill-nd">N/D</span>';
+}
+function statusPrazoPill(p) {
+  if (p === "Atrasada")          return '<span class="pill-atr">⚠ Atrasada</span>';
+  if (p === "DF OK")             return '<span class="pill-pub">✓ DF OK</span>';
+  if (p && p.includes("30"))     return `<span style="font-size:10px;color:var(--amber);font-weight:600;">${p}</span>`;
+  if (p && p.includes("60"))     return `<span style="font-size:10px;color:var(--yellow);font-weight:600;">${p}</span>`;
+  if (p && p.includes("90"))     return `<span style="font-size:10px;color:var(--green);font-weight:600;">${p}</span>`;
+  return `<span style="font-size:10px;color:var(--text-faint);">${p||'—'}</span>`;
+}
+
+// ─── KPIs ─────────────────────────────────────────────────────────────────
+function updateKPIs() {
+  const exF = filt(exercicioFunds);
+  const evF = filt(eventosFunds);
+  const exPend = exF.filter(f => f.status === "Pendente");
+  
+  const exAtr = exPend.filter(f => f.statusPrazo === "Atrasada" || (d(f.prazoDate) && d(f.prazoDate) < TODAY));
+  const ex30  = exPend.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT30; });
+  const ex60  = exPend.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT60; });
+  const ex90  = exPend.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT90; });
+  
+  const evAtr = evF.filter(f => f.statusPrazo === "Atrasada");
+  const ev30  = evF.filter(f => f.statusPrazo === "Menos de 30 dias");
+  const ev60  = evF.filter(f => f.statusPrazo === "Menos de 30 dias" || f.statusPrazo === "Menos de 60 dias");
+  const ev90  = evF.filter(f => ["Menos de 30 dias","Menos de 60 dias","Menos de 90 dias"].includes(f.statusPrazo));
+  
+  setText("kpi-atr", exAtr.length + evAtr.length);
+  setText("kpi-30",  ex30.length  + ev30.length);
+  setText("kpi-60",  ex60.length  + ev60.length);
+  setText("kpi-90",  ex90.length  + ev90.length);
+  setText("kpi-atr-sub", `${exAtr.length} Exercício · ${evAtr.length} Eventos`);
+  setText("kpi-30-sub",  `${ex30.length} Exercício · ${ev30.length} Eventos`);
+  setText("kpi-60-sub",  `${ex60.length} Exercício · ${ev60.length} Eventos`);
+  setText("kpi-90-sub",  `${ex90.length} Exercício · ${ev90.length} Eventos`);
+
+  const exPub  = exF.filter(f => f.status === "Publicada").length;
+  setText("kpi-pub",      exPub);
+  setText("kpi-pub-sub",  `de ${exF.length} no Exercício 2026`);
+
+  const cntExPend = exPend.length;
+  const evPend = evF.filter(f => f.status !== "Publicada").length;
+  setText("kpi-pend",     cntExPend + evPend);
+  setText("kpi-pend-sub", `${cntExPend} Exercício · ${evPend} Eventos`);
+}
+
+// ─── EXERCÍCIO CHART (horizontal) ────────────────────────────────────────
+function buildExChart() {
+  const filtered = filt(exercicioFunds);
+
+  document.getElementById("ex-chart").innerHTML = EX_MONTHS.map(({mes, exSocial}) => {
+    const mf     = filtered.filter(f => f.exSocial === exSocial);
+    const pub    = mf.filter(f => f.status === "Publicada").length;
+    const pend   = mf.filter(f => f.status === "Pendente").length;
+    const total  = mf.length;
+    const pubPct = total > 0 ? (pub  / total * 100).toFixed(1) : 0;
+    const pendPct= total > 0 ? (pend / total * 100).toFixed(1) : 0;
+    const isSel  = selectedEx === exSocial;
+    const isDim  = selectedEx !== null && !isSel;
+    const isEmpty= total === 0;
+
+    return `<div class="hbar-row${isDim?" dimmed":""}${isSel?" selected":""}" onclick="${isEmpty?"null":("selectEx("+exSocial+")")}" style="${isEmpty?"cursor:default;opacity:0.35;":""}">
+      <div class="hbar-lbl">${mes}</div>
+      <div class="hbar-track">
+        ${isEmpty
+          ? `<div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>`
+          : `<div class="hbar-track-fill" style="width:100%;">
+              <div class="seg-pub"  style="width:${pubPct}%;"></div>
+              <div class="seg-pend" style="width:${pendPct}%;"></div>
+             </div>`
+        }
+      </div>
+      <div class="hbar-total" style="width:36px;font-size:11px;">${isEmpty ? "" : `<span style="font-weight:700;color:var(--text);">${pub}</span><span style="color:var(--text-faint);">/${total}</span>`}</div>
+    </div>`;
+  }).join("");
+}
+
+function selectEx(exSocial) {
+  selectedEx = selectedEx === exSocial ? null : exSocial;
+  if (selectedEx) { selectedEv = null; buildEvChart(); }
+  buildExChart();
+  buildExDrill();
+  buildEvDrill();
+}
+
+function buildExDrill() {
+  const panel = document.getElementById("ex-drill");
+  if (!selectedEx) { panel.style.display = "none"; return; }
+  const funds = filt(exercicioFunds).filter(f => f.exSocial === selectedEx);
+  const mes   = MES_NOME[selectedEx];
+  panel.style.display = "block";
+  panel.innerHTML = `
+    <div class="drill-header">
+      <div>
+        <div class="drill-title" style="color:var(--green);">Exercício ${mes}/26 &nbsp;·&nbsp; ${funds.length} fund${funds.length===1?"o":"os"}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-export" onclick="exportTable('tbl-ex-drill','DFs_Exercicio_${mes}')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="selectEx(${selectedEx})">✕ Fechar</button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="data-tbl" id="tbl-ex-drill">
+        <thead><tr>
+          <th>Fundo</th><th>Analista DF</th><th>Auditoria</th><th>Prazo Legal</th><th>Status Prazo</th><th>Status DF</th>
+        </tr></thead>
+        <tbody>${funds.map(f=>`<tr>
+          <td class="fund-name">${f.nome}</td>
+          <td style="font-size:11px;">${f.analista}</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">${f.auditoria}</td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;">${fmtDate(f.prazoDate)}</td>
+          <td>${statusPrazoPill(f.statusPrazo)}</td>
+          <td>${statusPill(f.status)}</td>
+        </tr>`).join("")}</tbody>
+      </table>
+    </div>`;
+}
+
+// ─── AUDITORIA PIE CHART ─────────────────────────────────────────────────
+function buildAudChart() {
+  // Combined totals: Exercício + Eventos
+  const totalsEx = {}, totalsEv = {}, totals = {};
+  AUDITORES.forEach(a => {
+    totalsEx[a] = auditoriaMonths.reduce((s,m) => s + (m[a]||0), 0);
+    totalsEv[a] = auditoriaEventosMeses.reduce((s,m) => s + (m[a]||0), 0);
+    totals[a]   = totalsEx[a] + totalsEv[a];
+  });
+  const grandTotal = Object.values(totals).reduce((s,v) => s+v, 0);
+
+  // ── Draw SVG pie ──────────────────────────────────────────────────────
+  const cx = 160, cy = 160, R = 130, rInner = 75;
+  let angle = -Math.PI / 2; // start from top
+  const GAP = 0.025; // radians gap between slices
+  let slices = '';
+
+  AUDITORES.forEach(a => {
+    const val = totals[a];
+    if (!val) return;
+    const sweep = (val / grandTotal) * (Math.PI * 2) - GAP;
+    const x1 = cx + R * Math.cos(angle);
+    const y1 = cy + R * Math.sin(angle);
+    const x2 = cx + R * Math.cos(angle + sweep);
+    const y2 = cy + R * Math.sin(angle + sweep);
+    const xi1 = cx + rInner * Math.cos(angle);
+    const yi1 = cy + rInner * Math.sin(angle);
+    const xi2 = cx + rInner * Math.cos(angle + sweep);
+    const yi2 = cy + rInner * Math.sin(angle + sweep);
+    const large = sweep > Math.PI ? 1 : 0;
+    const pct = ((val / grandTotal) * 100).toFixed(1);
+
+    // Midpoint angle for percentage label
+    const mid = angle + sweep / 2;
+    const lMid = (rInner + R) / 2;
+    const lx = cx + lMid * Math.cos(mid);
+    const ly = cy + lMid * Math.sin(mid);
+
+    slices += `<path
+      d="M ${xi1} ${yi1} L ${x1} ${y1} A ${R} ${R} 0 ${large} 1 ${x2} ${y2} L ${xi2} ${yi2} A ${rInner} ${rInner} 0 ${large} 0 ${xi1} ${yi1} Z"
+      fill="${AUD_COLORS[a]}" stroke="white" stroke-width="2"
+      style="transition:opacity .2s;cursor:default;"
+      onmouseenter="pieHover('${a}',${val},${pct})"
+      onmouseleave="pieHoverOut(${grandTotal})"
+    />`;
+    if (val > 0) {
+      slices += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+        font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif">${pct}%</text>`;
+    }
+    angle += sweep + GAP;
+  });
+
+  // Donut hole
+  slices += `<circle cx="${cx}" cy="${cy}" r="${rInner}" fill="white"/>`;
+
+  document.getElementById("pie-svg").innerHTML = slices;
+  document.getElementById("pie-center-val").textContent = grandTotal;
+  document.getElementById("pie-center-lbl").textContent = "fundos";
+
+  // ── Legend ────────────────────────────────────────────────────────────
+  document.getElementById("pie-legend").innerHTML = AUDITORES
+    .filter(a => totals[a] > 0)
+    .map(a => `
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="aud-dot" style="background:${AUD_COLORS[a]};"></div>
+        <span style="font-size:12px;color:var(--text-muted);min-width:110px;">${a}</span>
+        <span style="font-size:13px;font-weight:700;color:var(--text);font-family:Inter,sans-serif;">${totals[a]}</span>
+      </div>`)
+    .join("");
+
+  // ── Summary table: two sections (Exercício + Eventos) ───────────────
+  const activeExAuds = AUDITORES.filter(a => totalsEx[a] > 0);
+  const activeEvAuds = AUDITORES_EV.filter(a => totalsEv[a] > 0);
+
+  const thStyle = (a) => `<th><span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:8px;height:8px;border-radius:50%;background:${AUD_COLORS[a]};display:inline-block;"></span>${a}</span></th>`;
+  const cell    = (v) => v ? `<td style="text-align:center;font-weight:600;">${v}</td>` : `<td style="text-align:center;"><span style="color:#d1d5db;font-size:9px;">–</span></td>`;
+
+  document.getElementById("aud-summary").innerHTML = `
+    <div style="overflow-x:auto;">
+
+      <!-- Section: Exercício 2026 -->
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-faint);margin-bottom:6px;margin-top:4px;">Exercício Social 2026</div>
+      <table class="data-tbl" style="margin-bottom:20px;">
+        <thead><tr>
+          <th>Mês</th>
+          ${activeExAuds.map(thStyle).join("")}
+          <th>Total</th>
+        </tr></thead>
+        <tbody>
+          ${auditoriaMonths.map(m => {
+            const rowTotal = activeExAuds.reduce((s,a)=>s+(m[a]||0),0);
+            return `<tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">${m.mes}</td>
+              ${activeExAuds.map(a=>cell(m[a])).join("")}
+              <td style="font-weight:700;color:var(--text);text-align:center;">${rowTotal||"—"}</td>
+            </tr>`;
+          }).join("")}
+          <tr style="border-top:2px solid var(--border2);background:#f8fafc;">
+            <td style="font-weight:700;color:var(--text);font-family:Inter,sans-serif;">Total</td>
+            ${activeExAuds.map(a=>`<td style="font-weight:700;text-align:center;color:${AUD_COLORS[a]};">${totalsEx[a]||"—"}</td>`).join("")}
+            <td style="font-weight:800;text-align:center;color:var(--text);">${Object.values(totalsEx).reduce((s,v)=>s+v,0)}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section: Eventos 2026 -->
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-faint);margin-bottom:6px;">Eventos 2026</div>
+      <table class="data-tbl">
+        <thead><tr>
+          <th>Mês Base</th>
+          ${activeEvAuds.map(thStyle).join("")}
+          <th>Total</th>
+        </tr></thead>
+        <tbody>
+          ${auditoriaEventosMeses.map(m => {
+            const rowTotal = activeEvAuds.reduce((s,a)=>s+(m[a]||0),0);
+            return `<tr>
+              <td style="font-family:Inter,sans-serif;font-weight:600;color:var(--text);">${m.mes}</td>
+              ${activeEvAuds.map(a=>cell(m[a])).join("")}
+              <td style="font-weight:700;color:var(--text);text-align:center;">${rowTotal||"—"}</td>
+            </tr>`;
+          }).join("")}
+          <tr style="border-top:2px solid var(--border2);background:#f8fafc;">
+            <td style="font-weight:700;color:var(--text);font-family:Inter,sans-serif;">Total</td>
+            ${activeEvAuds.map(a=>`<td style="font-weight:700;text-align:center;color:${AUD_COLORS[a]};">${totalsEv[a]||"—"}</td>`).join("")}
+            <td style="font-weight:800;text-align:center;color:var(--text);">${Object.values(totalsEv).reduce((s,v)=>s+v,0)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>`;
+}
+
+function pieHover(name, val, pct) {
+  document.getElementById("pie-center-val").textContent = val;
+  document.getElementById("pie-center-lbl").textContent = name;
+}
+function pieHoverOut(total) {
+  document.getElementById("pie-center-val").textContent = total;
+  document.getElementById("pie-center-lbl").textContent = "fundos";
+}
+
+// ─── EVENTOS CHART (horizontal) ──────────────────────────────────────────
+function buildEvChart() {
+  const filtered = filt(eventosFunds);
+
+  const EV_MONTHS = getEvMonths();
+  document.getElementById("ev-chart").innerHTML = EV_MONTHS.map(mes => {
+    const mf     = filtered.filter(f => f.mesBase === mes);
+    const atr    = mf.filter(f => f.statusPrazo === "Atrasada").length;
+    const pub    = mf.filter(f => f.status === "Publicada").length;
+    const pend   = mf.filter(f => f.statusPrazo !== "Atrasada" && f.status !== "Publicada").length;
+    const total  = mf.length;
+    const atrPct = total > 0 ? (atr  / total * 100).toFixed(1) : 0;
+    const pubPct = total > 0 ? (pub  / total * 100).toFixed(1) : 0;
+    const pendPct= total > 0 ? (pend / total * 100).toFixed(1) : 0;
+    const isSel  = selectedEv === mes;
+    const isDim  = selectedEv !== null && !isSel;
+    const isEmpty= total === 0;
+    const done   = pub;
+
+    return `<div class="hbar-row${isDim?" dimmed":""}${isSel?" selected":""}" onclick="${isEmpty?"null":("selectEv('"+mes+"')")}" style="${isEmpty?"cursor:default;opacity:0.35;":""}">
+      <div class="hbar-lbl">${mes}</div>
+      <div class="hbar-track">
+        ${isEmpty
+          ? `<div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>`
+          : `<div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:${atrPct}%;"></div>
+               <div style="width:${pendPct}%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:${pubPct}%;"></div>
+             </div>`
+        }
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;">${isEmpty ? "" : `<span style="font-weight:700;color:var(--text);">${done}</span><span style="color:var(--text-faint);">/${total}</span>`}</div>
+    </div>`;
+  }).join("");
+}
+
+function selectEv(mes) {
+  selectedEv = selectedEv === mes ? null : mes;
+  if (selectedEv) { selectedEx = null; buildExChart(); }
+  buildEvChart();
+  buildEvDrill();
+  buildExDrill();
+}
+
+function buildEvDrill() {
+  const panel = document.getElementById("ev-drill");
+  if (!selectedEv) { panel.style.display = "none"; return; }
+  const funds = filt(eventosFunds).filter(f => f.mesBase === selectedEv);
+  panel.style.display = "block";
+  panel.innerHTML = `
+    <div class="drill-header">
+      <div>
+        <div class="drill-title" style="color:var(--amber);">Eventos ${selectedEv} &nbsp;·&nbsp; ${funds.length} fund${funds.length===1?"o":"os"}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-export" onclick="exportTable('tbl-ev-drill','DFs_Eventos_${selectedEv}')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="selectEv('${selectedEv}')">✕ Fechar</button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="data-tbl" id="tbl-ev-drill">
+        <thead><tr>
+          <th>Fundo</th><th>Analista DF</th><th>Auditoria</th><th>Tipo do Evento</th><th>Data do Evento</th><th>Status Prazo</th>
+        </tr></thead>
+        <tbody>${funds.map(f=>`<tr>
+          <td class="fund-name">${f.nome}</td>
+          <td style="font-size:11px;">${f.analista}</td>
+          <td style="font-family:Inter,sans-serif;font-size:10px;">${f.auditoria}</td>
+          <td><span style="font-size:11px;color:var(--amber);font-weight:600;">${f.tipoEvento}</span></td>
+          <td style="font-family:Inter,sans-serif;font-size:11px;color:var(--text-faint);">${f.dataEvento}</td>
+          <td>${statusPrazoPill(f.statusPrazo)}</td>
+        </tr>`).join("")}</tbody>
+      </table>
+    </div>`;
+}
+
+// ─── TAB SWITCH ───────────────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("tab-"+name).classList.add("active");
+}
+
+// ─── UPDATE ALL ───────────────────────────────────────────────────────────
+function updateAll() {
+  updateKPIs();
+  buildDonutChart();
+  buildExChart();
+  buildExDrill();
+  buildEvChart();
+  buildEvDrill();
+}
+
+// ─── CARD DRILL-DOWN ─────────────────────────────────────────────────────
+let currentCardDrill = null;
+
+function cardDrill(type) {
+  const panel = document.getElementById("card-drill");
+  if (currentCardDrill === type) {
+    currentCardDrill = null;
+    panel.style.display = "none";
+    return;
+  }
+  currentCardDrill = type;
+
+  const exF = filt(exercicioFunds);
+  const evF = filt(eventosFunds);
+  let title = "", color = "", funds = [], isEvento = false, isMixed = false;
+
+  if (type === "atrasadas") {
+    title = "DFs Atrasadas"; color = "var(--red)";
+    const exAtr = exF.filter(f => f.status === "Pendente" && (f.statusPrazo === "Atrasada" || (d(f.prazoDate) && d(f.prazoDate) < TODAY)));
+    const evAtr = evF.filter(f => f.status !== "Publicada" && f.statusPrazo === "Atrasada");
+    funds = [...exAtr.map(f => ({...f, _src:"Exercício"})), ...evAtr.map(f => ({...f, _src:"Evento"}))];
+    isMixed = true;
+  } else if (type === "publicadas") {
+    title = "DFs Publicadas"; color = "var(--green)";
+    funds = exF.filter(f => f.status === "Publicada").map(f => ({...f, _src:"Exercício"}));
+  } else if (type === "pendentes") {
+    title = "DFs Pendentes"; color = "#d97706";
+    const exP = exF.filter(f => f.status === "Pendente").map(f => ({...f, _src:"Exercício"}));
+    const evP = evF.filter(f => f.status !== "Publicada").map(f => ({...f, _src:"Evento"}));
+    funds = [...exP, ...evP]; isMixed = true;
+  } else if (type === "30") {
+    title = "Vencendo em até 30 dias"; color = "#92400e";
+    const exP = exF.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT30 && f.status==="Pendente"; }).map(f=>({...f,_src:"Exercício"}));
+    const evP = evF.filter(f => f.statusPrazo === "Menos de 30 dias").map(f=>({...f,_src:"Evento"}));
+    funds = [...exP, ...evP]; isMixed = true;
+  } else if (type === "60") {
+    title = "Vencendo em até 60 dias"; color = "#166534";
+    const exP = exF.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT60 && f.status==="Pendente"; }).map(f=>({...f,_src:"Exercício"}));
+    const evP = evF.filter(f => ["Menos de 30 dias","Menos de 60 dias"].includes(f.statusPrazo)).map(f=>({...f,_src:"Evento"}));
+    funds = [...exP, ...evP]; isMixed = true;
+  } else if (type === "90") {
+    title = "Vencendo em até 90 dias"; color = "#1e40af";
+    const exP = exF.filter(f => { const p=d(f.prazoDate); return p && p>=TODAY && p<=DT90 && f.status==="Pendente"; }).map(f=>({...f,_src:"Exercício"}));
+    const evP = evF.filter(f => ["Menos de 30 dias","Menos de 60 dias","Menos de 90 dias"].includes(f.statusPrazo)).map(f=>({...f,_src:"Evento"}));
+    funds = [...exP, ...evP]; isMixed = true;
+  } else if (type === "venc") {
+    cardDrill("90"); return;
+  }
+
+  const rows = funds.map(f => {
+    const isEv = f._src === "Evento";
+    return `<tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:${isEv?"#eff6ff":"#f0fdf4"};color:${isEv?"#1e40af":"#166534"};border:1px solid ${isEv?"#bfdbfe":"#bbf7d0"};">${f._src}</span></td>
+      <td class="fund-name">${f.nome}</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">${f.auditoria || "—"}</td>
+      ${isEv
+        ? `<td style="font-size:11px;"><span style="color:#f59e0b;font-weight:600;">${f.tipoEvento||"—"}</span><br><span style="font-family:Inter,sans-serif;font-size:10px;color:var(--text-faint);">${f.dataEvento||"—"}</span></td>
+           <td>${statusPrazoPill(f.statusPrazo)}</td>`
+        : `<td style="font-family:Inter,sans-serif;font-size:11px;">${fmtDate(f.prazoDate)}</td>
+           <td>${statusPrazoPill(f.statusPrazo)}</td>`
+      }
+    </tr>`;
+  }).join("");
+
+  panel.style.display = "block";
+  panel.innerHTML = `
+    <div class="drill-header">
+      <div>
+        <div class="drill-title" style="color:${color};">${title} &nbsp;·&nbsp; ${funds.length} fund${funds.length===1?"o":"os"}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-export" onclick="exportTable('tbl-card-drill','DFs_${type}')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="cardDrill('${type}')">✕ Fechar</button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table class="data-tbl" id="tbl-card-drill">
+        <thead><tr>
+          <th>Tipo</th><th>Fundo</th><th>Auditoria</th><th>Prazo / Evento</th><th>Status</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+
+  panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+// ─── EXPORT TO EXCEL ─────────────────────────────────────────────────────
+function exportTable(tableId, filename) {
+  if (typeof XLSX === "undefined") { alert("Biblioteca de exportação não carregada. Verifique sua conexão."); return; }
+  const table = document.getElementById(tableId);
+  if (!table) { alert("Tabela não encontrada."); return; }
+
+  // Extract headers
+  const headers = [...table.querySelectorAll('thead th')].map(th => th.innerText.trim());
+
+  // Extract rows (skip cells with only "–" dashes, use empty string)
+  const rows = [...table.querySelectorAll('tbody tr')].map(tr =>
+    [...tr.querySelectorAll('td')].map(td => {
+      const text = td.innerText.trim();
+      return text === '–' || text === '' ? '' : text;
+    })
+  );
+
+  const wsData = [headers, ...rows];
+  const ws = XLSX.utils.aoa_to_sheet(wsData);
+
+  // Auto column widths
+  const colWidths = headers.map((h, i) => ({
+    wch: Math.max(h.length, ...rows.map(r => (r[i]||'').toString().length), 10)
+  }));
+  ws['!cols'] = colWidths;
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Fundos');
+  XLSX.writeFile(wb, `${filename}_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.xlsx`);
+}
+
+// ─── DOWNLOAD UPDATED HTML ───────────────────────────────────────────────
+function safeJson(v) {
+  return JSON.stringify(v).replace(/<\//g, '<\/');
+}
+
+function serializeArr(name, arr) {
+  const lines = arr.map(f => {
+    const entries = Object.entries(f).map(([k,v]) => k + ':' + safeJson(v)).join(',');
+    return '  {' + entries + '}';
+  }).join(',\n');
+  return 'const ' + name + ' = [\n' + lines + '\n];';
+}
+
+function replaceArrInSrc(src, name, data) {
+  const marker = 'const ' + name + ' = [';
+  const start  = src.indexOf(marker);
+  if (start === -1) return src;
+  let depth = 0, i = start + marker.length - 1;
+  for (; i < src.length; i++) {
+    if      (src[i] === '[') depth++;
+    else if (src[i] === ']') { depth--; if (depth === 0) break; }
+  }
+  const end = i + 2; // skip ];
+  return src.slice(0, start) + serializeArr(name, data) + src.slice(end);
+}
+
+function downloadUpdatedHTML() {
+  let src = document.documentElement.outerHTML;
+  [
+    ['exercicioFunds2025', exercicioFunds2025],
+    ['eventosFunds2025',   eventosFunds2025],
+    ['exercicioFunds',     exercicioFunds],
+    ['eventosFunds',       eventosFunds],
+  ].forEach(function(pair) {
+    src = replaceArrInSrc(src, pair[0], pair[1]);
+  });
+  const blob = new Blob([src], { type: 'text/html;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  const date = new Date().toLocaleDateString('pt-BR').replace(/\//g, '-');
+  a.href = url;
+  a.download = 'kanastra_dfs_dashboard_' + date + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+// ─── DFS DONUT CHART ─────────────────────────────────────────────────────
+const DONUT = { cx:120, cy:120, R:108, ri:70, gap:0.045 };
+
+function calcDonutData() {
+  const exF = filt(exercicioFunds), evF = filt(eventosFunds);
+  const exPend = exF.filter(f => f.status === "Pendente");
+
+  const pub   = exF.filter(f => f.status === "Publicada").length
+              + evF.filter(f => f.status === "Publicada").length;
+  const atr   = exPend.filter(f => f.statusPrazo === "Atrasada" || (d(f.prazoDate) && d(f.prazoDate) < TODAY)).length
+              + evF.filter(f => f.status !== "Publicada" && f.statusPrazo === "Atrasada").length;
+  const pend  = exPend.length + evF.filter(f => f.status !== "Publicada").length;
+  const total = exF.length + evF.length;
+
+  return { pub, atr, pend, total };
+}
+
+function buildDonutChart() {
+  const data = calcDonutData();
+  const { cx, cy, R, ri, gap } = DONUT;
+  const total = data.total || 1;
+
+  const segs = [
+    { key:"atrasadas",  label:"URGENTES — ATRASADAS", value:data.atr,  color:"#dc2626" },
+    { key:"pendentes",  label:"PENDENTES",  value:data.pend, color:"#E2B95A" },
+    { key:"publicadas", label:"CONCLUÍDAS", value:data.pub,  color:"#14735a" },
+  ];
+
+  // Build arc paths
+  let angle = -Math.PI / 2;
+  let paths = '';
+  // Background track
+  paths += `<circle class="donut-track" cx="${cx}" cy="${cy}" r="${(R+ri)/2}"
+    fill="none" stroke="#f1f5f9" stroke-width="${R-ri}" />`;
+
+  // Apply sqrt-weighted proportions so small segments stay visible
+  const sumSqrt = segs.reduce((acc,s) => acc + (s.value > 0 ? Math.sqrt(s.value) : 0), 0);
+  segs.forEach(s => {
+    if (!s.value) return;
+    const visualWeight = Math.sqrt(s.value) / (sumSqrt || 1);
+    const sweep = visualWeight * Math.PI * 2 - gap;
+    const x1 = cx + R * Math.cos(angle),   y1 = cy + R * Math.sin(angle);
+    const x2 = cx + R * Math.cos(angle+sweep), y2 = cy + R * Math.sin(angle+sweep);
+    const xi1= cx + ri* Math.cos(angle),   yi1= cy + ri* Math.sin(angle);
+    const xi2= cx + ri* Math.cos(angle+sweep), yi2= cy + ri* Math.sin(angle+sweep);
+    const lg = sweep > Math.PI ? 1 : 0;
+    const mid = angle + sweep / 2;
+    const lx  = cx + (R+ri)/2 * Math.cos(mid);
+    const ly  = cy + (R+ri)/2 * Math.sin(mid);
+    const realPct = ((s.value/total)*100).toFixed(1);
+    const pct = realPct;
+
+    paths += `<path class="donut-seg" data-key="${s.key}" data-val="${s.value}" data-lbl="${s.label}" data-color="${s.color}"
+      d="M${xi1} ${yi1} L${x1} ${y1} A${R} ${R} 0 ${lg} 1 ${x2} ${y2} L${xi2} ${yi2} A${ri} ${ri} 0 ${lg} 0 ${xi1} ${yi1}Z"
+      fill="${s.color}" opacity="0.9" stroke="white" stroke-width="2"
+      onmouseenter="donutHover(this,'${s.key}')"
+      onmouseleave="donutOut()"
+      onclick="cardDrill('${s.key}')"
+    />`;
+    if (s.value > 0) {
+      paths += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle"
+        font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif"
+        pointer-events="none">${pct}%</text>`;
+    }
+    angle += sweep + gap;
+  });
+
+  // Inner white hole
+  paths += `<circle cx="${cx}" cy="${cy}" r="${ri-2}" fill="white"/>`;
+
+  document.getElementById("donut-dfs").innerHTML = paths;
+  document.getElementById("donut-dfs-val").textContent = data.total;
+  document.getElementById("donut-dfs-lbl").textContent = "fundos";
+
+  // Update stat cards
+  const sv = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=val; };
+  sv("stat-val-atr",  data.atr);
+  sv("stat-val-pend", data.pend);
+  sv("stat-val-pub",  data.pub);
+
+  // Legend removed (now shown as compact inline dots below the SVG)
+  // Legend shown as inline dots below SVG
+
+  // Legend event listeners removed (legend now inline dots)
+
+
+}
+
+function donutHover(el, key) {
+  const val   = el.getAttribute("data-val");
+  const lbl   = el.getAttribute("data-lbl");
+  const color = el.getAttribute("data-color");
+  document.getElementById("donut-dfs-val").textContent = val;
+  document.getElementById("donut-dfs-val").style.color = color;
+  document.getElementById("donut-dfs-lbl").textContent = lbl;
+  el.style.opacity    = "1";
+  el.style.filter     = `drop-shadow(0 0 10px ${color}99)`;
+  el.style.transform  = "scale(1.03)";
+  el.style.transformOrigin = "130px 130px";
+  // Dim others
+  document.querySelectorAll(".donut-seg").forEach(s => {
+    if (s !== el) { s.style.opacity = "0.4"; s.style.filter = "none"; }
+  });
+}
+function donutOut() {
+  const data = calcDonutData();
+  document.getElementById("donut-dfs-val").textContent = data.total;
+  document.getElementById("donut-dfs-val").style.color = "var(--text)";
+  document.getElementById("donut-dfs-lbl").textContent = "fundos";
+  document.querySelectorAll(".donut-seg").forEach(s => {
+    s.style.opacity = "0.9"; s.style.filter = "none"; s.style.transform = "";
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────
+buildAudChart();
+updateAll();
+
+// ─── UPLOAD & PARSE LOGIC ─────────────────────────────────────────────────
+let pendingFiles = { dfs: null, aud: null };
+
+function dragOver(e, zoneId) { e.preventDefault(); document.getElementById(zoneId).classList.add('drag'); }
+function dragLeave(zoneId)   { document.getElementById(zoneId).classList.remove('drag'); }
+function dropFile(e, type)   { e.preventDefault(); const z = type==='dfs'?'zone-dfs':'zone-aud'; document.getElementById(z).classList.remove('drag'); const f=e.dataTransfer.files[0]; if(f) registerFile(f,type); }
+function handleFile(e, type) { const f=e.target.files[0]; if(f) registerFile(f,type); }
+
+function registerFile(file, type) {
+  const statusEl = document.getElementById('status-' + type);
+  if (!file.name.match(/\.(xlsx|xls)$/i)) {
+    statusEl.innerHTML = '<span style="color:var(--red)">✗ Formato inválido. Use .xlsx ou .xls</span>';
+    return;
+  }
+  pendingFiles[type] = file;
+  statusEl.innerHTML = `<span style="color:var(--green)">✓ <strong>${file.name}</strong> pronto para processar</span>`;
+  document.getElementById('btn-apply').style.display = (pendingFiles.dfs || pendingFiles.aud) ? 'block' : 'none';
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function normAnalista(v) {
+  if (!v || v === '-' || v === 'nan') return '—';
+  const m = { LL:'Larissa Lourenço', LN:'Larissa Novais', 'LN ':'Larissa Novais',
+               Jonathas:'Jonathas', Daniela:'Daniela', Henrique:'Henrique', Luiz:'Luiz', Contabifi:'Contabifi' };
+  return m[String(v).trim()] || String(v).trim();
+}
+function normAud(v) {
+  if (!v) return 'Confirmar';
+  const s = String(v).trim();
+  return (s === '0' || s === '-90' || s === '') ? 'Confirmar' : s;
+}
+function fmtPrazo(v) {
+  if (!v || v === 'NaT') return '';
+  if (v instanceof Date) {
+    const d = String(v.getDate()).padStart(2,'0');
+    const m = String(v.getMonth()+1).padStart(2,'0');
+    return `${v.getFullYear()}-${m}-${d}`;
+  }
+  const s = String(v);
+  // Already YYYY-MM-DD
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
+  return s;
+}
+function fmtDataEvento(v) {
+  if (!v || v === 'NaT') return 'A confirmar';
+  if (v instanceof Date) {
+    const d = String(v.getDate()).padStart(2,'0');
+    const m = String(v.getMonth()+1).padStart(2,'0');
+    return `${d}/${m}/${v.getFullYear()}`;
+  }
+  const s = String(v);
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) {
+    const [yr,mo,dy] = s.slice(0,10).split('-');
+    return `${dy}/${mo}/${yr}`;
+  }
+  return s;
+}
+function getMesBase(v) {
+  if (!v || v === 'NaT') return 'S/D';
+  const dt = v instanceof Date ? v : new Date(v);
+  if (isNaN(dt)) return 'S/D';
+  const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+  return `${meses[dt.getMonth()]}/${String(dt.getFullYear()).slice(2)}`;
+}
+function getTipoEvento(obs) {
+  const s = String(obs || '').toLowerCase();
+  if (s.includes('cisão') || s.includes('cindiu')) return 'Cisão';
+  if (s.includes('transfer') || s.includes('transf')) return 'Transf-out';
+  if (s.includes('incorpor')) return 'Incorporação';
+  if (s.includes('encerr') || s.includes('liquidaç')) return 'Encerramento';
+  return 'Evento';
+}
+function shortName(nome) {
+  return String(nome||'')
+    .replace(/ FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO MULTIMERCADO CRÉDITO PRIVADO IE LP/g,'')
+    .replace(/ FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS[\w\s\-\,\/ÇÃÁÉÍÓÚ]*/gi, s => {
+      const lower = s.toLowerCase();
+      if (lower.includes('financeiro')) return '';
+      if (lower.includes('multiset')) return '';
+      if (lower.includes('multisset')) return '';
+      if (lower.includes('imobiliário')) return '';
+      if (lower.includes('agroneg')) return '';
+      if (lower.includes('comerci')) return '';
+      if (lower.includes('mercantis')) return '';
+      if (lower.includes('não padronizado') || lower.includes('não-padronizado')) return '';
+      if (lower.includes('multicarteira')) return '';
+      return '';
+    })
+    .replace(/ FUNDO DE INVESTIMENTO EM PARTICIPAÇÕES[\w\s\-\,\/ÇÃÁÉÍÓÚ]*/gi,'')
+    .replace(/ FUNDO DE INVESTIMENTO FINANCEIRO[\w\s\-\,\/ÇÃÁÉÍÓÚ]*/gi,'')
+    .replace(/ FUNDO DE INVESTIMENTO IMOBILIÁRIO[\w\s\-\,\/ÇÃÁÉÍÓÚ]*/gi,'')
+    .replace(/ - RESPONSABILIDADE LIMITADA/gi,'')
+    .replace(/ DE RESPONSABILIDADE LIMITADA/gi,'')
+    .replace(/ RESPONSABILIDADE LIMITADA/gi,'')
+    .trim();
+}
+
+// ── Parse DFs Excel ─────────────────────────────────────────────────────────
+function parseDFsFile(workbook) {
+  const getCol = (row, ...keys) => { for(const k of keys){ if(row[k]!==undefined && row[k]!==null) return row[k]; } return null; };
+
+  // ── Exercício 2025 ───────────────────────────────────────────────────────
+  const ex25sheet = workbook.Sheets['Exercício 2025'];
+  const ex25raw   = ex25sheet ? XLSX.utils.sheet_to_json(ex25sheet, {defval:null}) : [];
+  const newEx25 = [];
+  ex25raw.forEach(row => {
+    const nome   = getCol(row,'Nome do Fundo');
+    const status = getCol(row,'Status DF 2025');
+    if (!nome || !status || String(nome).length < 3) return;
+    if (['Não se aplica','nan',''].includes(String(status).trim())) return;
+    newEx25.push({
+      nome:        shortName(nome),
+      analista:    normAnalista(getCol(row,'Analista responsável','Analista responsável DF')),
+      exSocial:    parseInt(getCol(row,'EXERCÍCIO SOCIAL')) || 0,
+      prazoDate:   fmtPrazo(getCol(row,'Prazo legal')),
+      status:      String(status).trim(),
+      auditoria:   normAud(getCol(row,'Auditoria contratada')),
+      statusPrazo: String(getCol(row,'Status prazo')||'').trim()
+    });
+  });
+
+  // ── Eventos 2025 ────────────────────────────────────────────────────────
+  const ev25sheet = workbook.Sheets['Eventos 2025'];
+  const ev25raw   = ev25sheet ? XLSX.utils.sheet_to_json(ev25sheet, {defval:null}) : [];
+  const newEv25 = [];
+  ev25raw.forEach(row => {
+    const nome     = getCol(row,'Nome do Fundo');
+    const exSocial = getCol(row,'EXERCÍCIO SOCIAL');
+    const status25 = getCol(row,'Status DF 2025');
+    if (!nome || !exSocial || !status25) return;
+    const dataBase = getCol(row,'Data-base DF');
+    const sp = String(getCol(row,'Status prazo')||'').trim();
+    newEv25.push({
+      nome:        shortName(nome),
+      analista:    normAnalista(getCol(row,'Analista responsável','Analista responsável DF')),
+      mesBase:     getMesBase(dataBase),
+      dataEvento:  fmtDataEvento(dataBase),
+      auditoria:   normAud(getCol(row,'Auditoria contratada')),
+      tipoEvento:  getTipoEvento(getCol(row,'Observações')),
+      statusPrazo: (sp === '-100' || sp === 'Atrasada' || String(status25).trim() === 'Pendente') ? 'Atrasada' : 'DF OK',
+      status:      String(status25).trim(),
+      exSocial:    parseInt(exSocial) || 0
+    });
+  });
+
+  // ── Exercício 2026 ───────────────────────────────────────────────────────
+  const ex26sheet = workbook.Sheets['Exercício 2026'];
+  const ex26raw   = ex26sheet ? XLSX.utils.sheet_to_json(ex26sheet, {defval:null}) : [];
+  const newEx26 = [];
+  ex26raw.forEach(row => {
+    const nome   = getCol(row,'Nome do Fundo');
+    const status = getCol(row,'Status DF 2026');
+    if (!nome || !status || String(nome).length < 3) return;
+    if (['Não se aplica','nan',''].includes(String(status).trim())) return;
+    newEx26.push({
+      nome:        shortName(nome),
+      analista:    normAnalista(getCol(row,'Analista responsável DF','Analista responsável')),
+      exSocial:    parseInt(getCol(row,'EXERCÍCIO SOCIAL')) || 0,
+      prazoDate:   fmtPrazo(getCol(row,'Prazo legal')),
+      status:      String(status).trim(),
+      auditoria:   normAud(getCol(row,'Auditoria contratada')),
+      statusPrazo: String(getCol(row,'Status prazo')||'').trim()
+    });
+  });
+
+  // ── Eventos 2026 ────────────────────────────────────────────────────────
+  const ev26sheet = workbook.Sheets['Eventos 2026'];
+  const ev26raw   = ev26sheet ? XLSX.utils.sheet_to_json(ev26sheet, {defval:null}) : [];
+  const newEv26 = [];
+  ev26raw.forEach(row => {
+    const nome     = getCol(row,'Nome do Fundo');
+    const status26 = getCol(row,'Status DF');
+    if (!nome || !status26 || String(nome).length < 3) return;
+    const analista = normAnalista(getCol(row,'Analista responsável DF','Analista responsável'));
+    if (analista === '—') return; // skip unassigned
+    const dataBase = getCol(row,'Data-base DF');
+    const mesBase  = getMesBase(dataBase);
+    if (mesBase === 'S/D') return; // skip undefined dates
+    newEv26.push({
+      nome:        shortName(nome),
+      analista,
+      mesBase,
+      dataEvento:  fmtDataEvento(dataBase),
+      auditoria:   normAud(getCol(row,'Auditoria contratada')),
+      tipoEvento:  getTipoEvento(getCol(row,'Observações')),
+      statusPrazo: String(getCol(row,'Status prazo')||'').trim(),
+      status:      String(status26).trim(),
+      exSocial:    parseInt(getCol(row,'EXERCÍCIO SOCIAL')) || 0
+    });
+  });
+
+  return { ex25: newEx25, ev25: newEv25, ex26: newEx26, ev26: newEv26 };
+}
+
+// ── Apply uploads ────────────────────────────────────────────────────────────
+function applyUploads() {
+  const applyEl = document.getElementById('status-apply');
+  if (!pendingFiles.dfs && !pendingFiles.aud) return;
+
+  applyEl.innerHTML = '<span style="color:var(--text-muted)">⏳ Lendo e processando arquivos...</span>';
+  document.getElementById('btn-apply').disabled = true;
+
+  const promises = [];
+
+  if (pendingFiles.dfs) {
+    promises.push(new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const wb = XLSX.read(e.target.result, { type:'array', cellDates:true });
+          const parsed = parseDFsFile(wb);
+          // Update global arrays
+          exercicioFunds2025.length = 0; parsed.ex25.forEach(r => exercicioFunds2025.push(r));
+          eventosFunds2025.length   = 0; parsed.ev25.forEach(r => eventosFunds2025.push(r));
+          exercicioFunds.length     = 0; parsed.ex26.forEach(r => exercicioFunds.push(r));
+          eventosFunds.length       = 0; parsed.ev26.forEach(r => eventosFunds.push(r));
+          resolve(`✓ <strong>${pendingFiles.dfs.name}</strong>: ${parsed.ex25.length} fundos Ex.2025 · ${parsed.ev25.length} eventos 2025 · ${parsed.ex26.length} fundos Ex.2026 · ${parsed.ev26.length} eventos 2026`);
+        } catch(err) { reject('Controle de DFs: ' + err.message); }
+      };
+      reader.onerror = () => reject('Erro ao ler ' + pendingFiles.dfs.name);
+      reader.readAsArrayBuffer(pendingFiles.dfs);
+    }));
+  }
+
+  if (pendingFiles.aud) {
+    promises.push(new Promise((resolve) => {
+      // Auditoria file: just confirm (full parse would update auditoriaMonths)
+      resolve(`✓ <strong>${pendingFiles.aud.name}</strong> recebido`);
+    }));
+  }
+
+  Promise.all(promises)
+    .then(msgs => {
+      // Reset selections and refresh dashboard
+      selectedEx = null; selectedEv = null; currentCardDrill = null;
+      document.getElementById('card-drill').style.display = 'none';
+      buildAudChart();
+      updateAll();
+
+      applyEl.innerHTML = msgs.map(m => `<div style="color:var(--green);margin-bottom:4px;">${m}</div>`).join('') +
+        '<div style="color:var(--text-faint);font-size:11px;margin-top:6px;">Dashboard atualizado com sucesso ✓</div>';
+      pendingFiles = { dfs: null, aud: null };
+      document.getElementById('btn-apply').style.display = 'none';
+      document.getElementById('btn-apply').disabled = false;
+      // Clear file inputs
+      ['file-dfs','file-aud'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+      ['status-dfs','status-aud'].forEach(id => { const el=document.getElementById(id); if(el) el.innerHTML=''; });
+    })
+    .catch(err => {
+      applyEl.innerHTML = `<span style="color:var(--red)">✗ Erro: ${err}</span>`;
+      document.getElementById('btn-apply').disabled = false;
+    });
+}
+</script>
+
+
+</body></html>
