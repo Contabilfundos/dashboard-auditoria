@@ -164,7 +164,7 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
     <div class="header-sep"></div>
     <span class="header-title">Demonstrações Financeiras</span>
     <div class="header-sep"></div>
-    <span class="header-sub" id="headerSub">133 fundos · sem eventos 2025 · 28/05/2026</span>
+    <span class="header-sub" id="headerSub">32 fundos · Exercício &amp; Eventos 2026 · 28/05/2026</span>
   </div>
   <div style="display:flex;align-items:center;">
     <div class="tab-bar">
@@ -180,8 +180,8 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
   <!-- FILTER BAR: ANO -->
   <div class="filter-bar" style="margin-bottom:8px;">
     <span class="filter-label">Ano</span>
-    <button class="chip active" id="yr-2025" onclick="setAno(2025,this)">2025</button>
-    <button class="chip" id="yr-2026" onclick="setAno(2026,this)">2026</button>
+    <button class="chip" id="yr-2025" onclick="setAno(2025,this)">2025</button>
+    <button class="chip active" id="yr-2026" onclick="setAno(2026,this)">2026</button>
     <button class="chip" id="yr-2027" onclick="setAno(2027,this)">2027</button>
     <button class="chip" id="yr-2028" onclick="setAno(2028,this)">2028</button>
     <button class="chip" id="yr-2029" onclick="setAno(2029,this)">2029</button>
@@ -200,9 +200,9 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
       <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
         <div style="font-size:9px;font-weight:800;letter-spacing:1.8px;color:var(--text-faint);margin-bottom:14px;">VISÃO GERAL DAS DFs</div>
         <div style="position:relative;">
-          <svg id="donut-dfs" width="240" height="240" viewBox="0 0 240 240"><circle class="donut-track" cx="120" cy="120" r="89" fill="none" stroke="#f1f5f9" stroke-width="38"></circle><path class="donut-seg" data-key="atrasadas" data-val="2" data-lbl="ATRASADAS" data-color="#dc2626" d="M120 50 L120 12 A108 108 0 0 1 178.2639381125268 29.064234123092987 L157.76366359145257 61.06015174644916 A70 70 0 0 0 120 50Z" fill="#dc2626" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'atrasadas')" onmouseleave="donutOut()" onclick="cardDrill('atrasadas')"></path><text x="145.01534700133726" y="34.58786728805627" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">1.2%</text><path class="donut-seg" data-key="publicadas" data-val="170" data-lbl="CONCLUÍDAS" data-color="#14735a" d="M160.37683244700057 62.81860965710223 L182.2956843468009 31.777283470957727 A108 108 0 1 1 115.14164008393269 12.109331548433019 L116.85106301736377 50.070863040651034 A70 70 0 1 0 160.37683244700057 62.81860965710223Z" fill="#14735a" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'publicadas')" onmouseleave="donutOut()" onclick="cardDrill('publicadas')"></path><text x="94.98465299866275" y="205.41213271194374" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">98.8%</text><circle cx="120" cy="120" r="68" fill="white"></circle></svg>
+          <svg id="donut-dfs" width="240" height="240" viewBox="0 0 240 240"><circle class="donut-track" cx="120" cy="120" r="89" fill="none" stroke="#f1f5f9" stroke-width="38"></circle><path class="donut-seg" data-key="atrasadas" data-val="13" data-lbl="ATRASADAS" data-color="#dc2626" d="M120 50 L120 12 A108 108 0 0 1 227.2822352264788 132.43068802643168 L189.53478209123625 128.05692742453905 A70 70 0 0 0 120 50Z" fill="#dc2626" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'atrasadas')" onmouseleave="donutOut()" onclick="cardDrill('atrasadas')"></path><text x="186.45562010683597" y="60.799910842838244" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">25.5%</text><path class="donut-seg" data-key="pendentes" data-val="42" data-lbl="PENDENTES DENTRO DO PRAZO" data-color="#E2B95A" d="M189.10195062232856 131.17678040355386 L226.6144381030212 137.2441754797688 A108 108 0 0 1 12.39351459456664 110.78890350228284 L50.25505575573763 114.02984486259072 A70 70 0 0 0 189.10195062232856 131.17678040355386Z" fill="#E2B95A" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'pendentes')" onmouseleave="donutOut()" onclick="cardDrill('pendentes')"></path><text x="109.09178675462216" y="208.32899231732105" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">82.4%</text><path class="donut-seg" data-key="publicadas" data-val="9" data-lbl="CONCLUÍDAS" data-color="#14735a" d="M50.594226914644054 110.89842527778411 L12.916807239736528 105.95757042858119 A108 108 0 0 1 115.14164008393269 12.109331548433019 L116.85106301736377 50.070863040651034 A70 70 0 0 0 50.594226914644054 110.89842527778411Z" fill="#14735a" opacity="0.9" stroke="white" stroke-width="2" onmouseenter="donutHover(this,'publicadas')" onmouseleave="donutOut()" onclick="cardDrill('publicadas')"></path><text x="59.81098811977025" y="54.43870921891819" text-anchor="middle" dominant-baseline="middle" font-size="11" font-weight="700" fill="white" font-family="'Inter',sans-serif" pointer-events="none">17.6%</text><circle cx="120" cy="120" r="68" fill="white"></circle></svg>
           <div id="donut-dfs-center" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none;width:116px;">
-            <div id="donut-dfs-val" style="font-size: 40px; font-weight: 800; color: var(--text); line-height: 1; letter-spacing: -2px; transition: 0.25s;">172</div>
+            <div id="donut-dfs-val" style="font-size: 40px; font-weight: 800; color: var(--text); line-height: 1; letter-spacing: -2px; transition: 0.25s;">51</div>
             <div id="donut-dfs-lbl" style="font-size:9px;color:var(--text-faint);margin-top:3px;transition:all .25s;">fundos</div>
           </div>
         </div>
@@ -221,7 +221,7 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
 
         <div onclick="cardDrill('atrasadas')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(220, 38, 38, 0.15); background: rgba(220, 38, 38, 0.04); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(220,38,38,0.09)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(220,38,38,0.04)';this.style.transform=''">
           <div style="width:4px;height:40px;background:#dc2626;border-radius:2px;flex-shrink:0;"></div>
-          <div id="stat-val-atr" style="font-size:30px;font-weight:800;color:#dc2626;line-height:1;letter-spacing:-1.5px;min-width:44px;">2</div>
+          <div id="stat-val-atr" style="font-size:30px;font-weight:800;color:#dc2626;line-height:1;letter-spacing:-1.5px;min-width:44px;">13</div>
           <div>
             <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#dc2626;">ATRASADAS</div>
             <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">DFs com prazo vencido</div>
@@ -230,16 +230,16 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
 
         <div onclick="cardDrill('pendentes')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(226, 185, 90, 0.2); background: rgba(226, 185, 90, 0.05); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(226,185,90,0.12)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(226,185,90,0.05)';this.style.transform=''">
           <div style="width:4px;height:40px;background:#E2B95A;border-radius:2px;flex-shrink:0;"></div>
-          <div id="stat-val-pend" style="font-size:30px;font-weight:800;color:#E2B95A;line-height:1;letter-spacing:-1.5px;min-width:44px;">0</div>
+          <div id="stat-val-pend" style="font-size:30px;font-weight:800;color:#E2B95A;line-height:1;letter-spacing:-1.5px;min-width:44px;">42</div>
           <div>
-            <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#b8891a;">PENDENTES</div>
+            <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#b8891a;">PENDENTES DENTRO DO PRAZO</div>
             <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">Aguardando publicação</div>
           </div>
         </div>
 
         <div onclick="cardDrill('publicadas')" style="display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; border: 1px solid rgba(20, 115, 90, 0.15); background: rgba(20, 115, 90, 0.04); cursor: pointer; transition: 0.2s;" onmouseenter="this.style.background='rgba(20,115,90,0.09)';this.style.transform='translateX(4px)'" onmouseleave="this.style.background='rgba(20,115,90,0.04)';this.style.transform=''">
           <div style="width:4px;height:40px;background:#14735a;border-radius:2px;flex-shrink:0;"></div>
-          <div id="stat-val-pub" style="font-size:30px;font-weight:800;color:#14735a;line-height:1;letter-spacing:-1.5px;min-width:44px;">170</div>
+          <div id="stat-val-pub" style="font-size:30px;font-weight:800;color:#14735a;line-height:1;letter-spacing:-1.5px;min-width:44px;">9</div>
           <div>
             <div style="font-size:9px;font-weight:800;letter-spacing:1.5px;color:#14735a;">CONCLUÍDAS</div>
             <div style="font-size:11px;color:var(--text-faint);margin-top:2px;">DFs publicadas</div>
@@ -266,7 +266,7 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
               <div class="seg-pend" style="width:0.0%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">2</span><span style="color:var(--text-faint);">/2</span></div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">6</span><span style="color:var(--text-faint);">/6</span></div>
     </div><div class="hbar-row" onclick="selectEx(2)" style="">
       <div class="hbar-lbl">Fev/26</div>
       <div class="hbar-track">
@@ -275,97 +275,76 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
               <div class="seg-pend" style="width:0.0%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">3</span><span style="color:var(--text-faint);">/3</span></div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">2</span><span style="color:var(--text-faint);">/2</span></div>
     </div><div class="hbar-row" onclick="selectEx(3)" style="">
       <div class="hbar-lbl">Mar/26</div>
       <div class="hbar-track">
         <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
+              <div class="seg-pub" style="width:12.5%;"></div>
+              <div class="seg-pend" style="width:87.5%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">5</span><span style="color:var(--text-faint);">/5</span></div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">1</span><span style="color:var(--text-faint);">/8</span></div>
     </div><div class="hbar-row" onclick="selectEx(4)" style="">
       <div class="hbar-lbl">Abr/26</div>
       <div class="hbar-track">
         <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
+              <div class="seg-pub" style="width:0.0%;"></div>
+              <div class="seg-pend" style="width:100.0%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">7</span><span style="color:var(--text-faint);">/7</span></div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/12</span></div>
     </div><div class="hbar-row" onclick="selectEx(5)" style="">
       <div class="hbar-lbl">Mai/26</div>
       <div class="hbar-track">
         <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
+              <div class="seg-pub" style="width:0.0%;"></div>
+              <div class="seg-pend" style="width:100.0%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">5</span><span style="color:var(--text-faint);">/5</span></div>
-    </div><div class="hbar-row" onclick="selectEx(6)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/7</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Jun/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">10</span><span style="color:var(--text-faint);">/10</span></div>
-    </div><div class="hbar-row" onclick="selectEx(7)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Jul/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">7</span><span style="color:var(--text-faint);">/7</span></div>
-    </div><div class="hbar-row" onclick="selectEx(8)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Ago/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">12</span><span style="color:var(--text-faint);">/12</span></div>
-    </div><div class="hbar-row" onclick="selectEx(9)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Set/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">5</span><span style="color:var(--text-faint);">/5</span></div>
-    </div><div class="hbar-row" onclick="selectEx(10)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Out/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">5</span><span style="color:var(--text-faint);">/5</span></div>
-    </div><div class="hbar-row" onclick="selectEx(11)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Nov/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">17</span><span style="color:var(--text-faint);">/17</span></div>
-    </div><div class="hbar-row" onclick="selectEx(12)" style="">
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
       <div class="hbar-lbl">Dez/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-              <div class="seg-pub" style="width:100.0%;"></div>
-              <div class="seg-pend" style="width:0.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:36px;font-size:11px;"><span style="font-weight:700;color:var(--text);">55</span><span style="color:var(--text-faint);">/55</span></div>
+      <div class="hbar-total" style="width:36px;font-size:11px;"></div>
     </div></div>
         <div class="chart-legend">
           <div class="legend-item"><div class="legend-dot" style="background:var(--green);"></div>Publicada</div>
@@ -378,76 +357,98 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
         <div class="card-title">Demonstrações Financeiras — Eventos</div>
         <div class="card-sub">Liquidações, transferências, incorporações e encerramentos — filtrado por ano</div>
         <div class="click-hint">💡 Clique em uma barra para ver os detalhes</div>
-        <div id="ev-chart" class="hbar-chart"><div class="hbar-row" onclick="selectEv('Abr/25')" style="">
-      <div class="hbar-lbl">Abr/25</div>
+        <div id="ev-chart" class="hbar-chart"><div class="hbar-row" onclick="selectEv('Jan/26')" style="">
+      <div class="hbar-lbl">Jan/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/5</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Fev/26')" style="">
+      <div class="hbar-lbl">Fev/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/3</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Mar/26')" style="">
+      <div class="hbar-lbl">Mar/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:100.0%;"></div>
+               <div style="width:0.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/4</span></div>
+    </div><div class="hbar-row" onclick="selectEv('Abr/26')" style="">
+      <div class="hbar-lbl">Abr/26</div>
+      <div class="hbar-track">
+        <div class="hbar-track-fill" style="width:100%;">
+               <div class="seg-atr" style="width:50.0%;"></div>
+               <div style="width:50.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
+             </div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/2</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Mai/26</div>
+      <div class="hbar-track">
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
+      </div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="selectEv('Jun/26')" style="">
+      <div class="hbar-lbl">Jun/26</div>
       <div class="hbar-track">
         <div class="hbar-track-fill" style="width:100%;">
                <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
+               <div style="width:100.0%;background:#E2B95A;"></div>
+               <div class="seg-pub" style="width:0.0%;"></div>
              </div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">1</span><span style="color:var(--text-faint);">/1</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Jun/25')" style="">
-      <div class="hbar-lbl">Jun/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">0</span><span style="color:var(--text-faint);">/2</span></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Jul/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">8</span><span style="color:var(--text-faint);">/8</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Jul/25')" style="">
-      <div class="hbar-lbl">Jul/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Ago/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">1</span><span style="color:var(--text-faint);">/1</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Set/25')" style="">
-      <div class="hbar-lbl">Set/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Set/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">3</span><span style="color:var(--text-faint);">/3</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Out/25')" style="">
-      <div class="hbar-lbl">Out/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Out/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">17</span><span style="color:var(--text-faint);">/17</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Nov/25')" style="">
-      <div class="hbar-lbl">Nov/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Nov/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:0.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:100.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">4</span><span style="color:var(--text-faint);">/4</span></div>
-    </div><div class="hbar-row" onclick="selectEv('Dez/25')" style="">
-      <div class="hbar-lbl">Dez/25</div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
+    </div><div class="hbar-row" onclick="null" style="cursor:default;opacity:0.35;">
+      <div class="hbar-lbl">Dez/26</div>
       <div class="hbar-track">
-        <div class="hbar-track-fill" style="width:100%;">
-               <div class="seg-atr" style="width:40.0%;"></div>
-               <div style="width:0.0%;background:#E2B95A;"></div>
-               <div class="seg-pub" style="width:60.0%;"></div>
-             </div>
+        <div style="width:100%;background:repeating-linear-gradient(90deg,#f1f5f9 0px,#f1f5f9 6px,#e2e8f0 6px,#e2e8f0 7px);"></div>
       </div>
-      <div class="hbar-total" style="width:44px;font-size:11px;"><span style="font-weight:700;color:var(--text);">3</span><span style="color:var(--text-faint);">/5</span></div>
+      <div class="hbar-total" style="width:44px;font-size:11px;"></div>
     </div></div>
         <div class="chart-legend">
           <div class="legend-item"><div class="legend-dot" style="background:var(--red);"></div>Atrasada</div>
@@ -462,11 +463,11 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
     <div id="card-drill" class="drill-panel" style="display: none; margin-bottom: 16px;">
     <div class="drill-header">
       <div>
-        <div class="drill-title" style="color:#d97706;">DFs Pendentes &nbsp;·&nbsp; 28 fundos</div>
+        <div class="drill-title" style="color:var(--green);">DFs Publicadas &nbsp;·&nbsp; 9 fundos</div>
       </div>
       <div style="display:flex;gap:8px;">
-        <button class="btn-export" onclick="exportTable('tbl-card-drill','DFs_pendentes')">⬇ Exportar Excel</button>
-        <button class="drill-close" onclick="cardDrill('pendentes')">✕ Fechar</button>
+        <button class="btn-export" onclick="exportTable('tbl-card-drill','DFs_publicadas')">⬇ Exportar Excel</button>
+        <button class="drill-close" onclick="cardDrill('publicadas')">✕ Fechar</button>
       </div>
     </div>
     <div class="tbl-scroll">
@@ -476,172 +477,58 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
         </tr></thead>
         <tbody><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">FACTIA</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">SETTORE CRÉDITO PRIVADO</td>
+      <td class="fund-name">MULTIBANK</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PICPAY FGTS</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CLA</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">GAMA. LIMITADA</td>
+      <td class="fund-name">FRAGATA</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">SQUARE</td>
+      <td class="fund-name">HCAM PETRO</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">CREDIT PARTNERS FUNDO DE INVESTIMENTO EM DIREITO CREDITÓRIOS</td>
+      <td class="fund-name">ONCRED</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">LIVEN</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">Confiance</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
-           <td><span style="font-size:10px;color:var(--amber);font-weight:600;">Menos de 30 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">UNAVANTI</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
+      <td class="fund-name">EXPOENTE MERCANTIL</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">&lt; 90dias</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">01/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">ALVORADA IV</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">FORVS MAZARS</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">BOLSA DE CRÉDITOS</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">CREDALUGA</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">DELOITTE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">CLEAM CAPITAL BANK</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">CAPIA</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">GRANA TECH CRÉDITO POPULAR</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">VIRTUS</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">BAY</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">BGM</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">YELLOW CAPITAL I</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">BRAEVO</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">TRIO</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">MENESTYS III FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NP</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIRMAR</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/07/2026</td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">PLETORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS</td>
+      <td class="fund-name">J17 ORION</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr><tr>
       <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">FATURE</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">DELOITTE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">MACAÚBAS</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">28/10/2026</td>
-           <td><span style="font-size:10px;color:var(--text-faint);">Tarefa futura</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">ATICCA DIGITAL</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">CONFIANCE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">SYMA</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">DELOITTE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
-      <td class="fund-name">FIBRA GOLEM D360 FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO FINANCEIRO MULTIMERCADO CR</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">DELOITTE</td>
-      <td style="font-family:Inter,sans-serif;font-size:11px;">29/08/2026</td>
-           <td><span style="font-size:10px;color:var(--green);font-weight:600;">Menos de 90 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;">Evento</span></td>
-      <td class="fund-name">ACÁCIA(NC 2025 II)</td>
-      <td style="font-family:Inter,sans-serif;font-size:10px;">PWC</td>
-      <td style="font-size:11px;"><span style="color:#f59e0b;font-weight:600;">Encerramento</span><br><span style="font-family:Inter,sans-serif;font-size:10px;color:var(--text-faint);">02/06/2026</span></td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-    </tr><tr>
-      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#eff6ff;color:#1e40af;border:1px solid #bfdbfe;">Evento</span></td>
-      <td class="fund-name">CANADA INVEST</td>
+      <td class="fund-name">AGA</td>
       <td style="font-family:Inter,sans-serif;font-size:10px;">CLA</td>
-      <td style="font-size:11px;"><span style="color:#f59e0b;font-weight:600;">Transf-out</span><br><span style="font-family:Inter,sans-serif;font-size:10px;color:var(--text-faint);">19/06/2026</span></td>
-           <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/05/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
+    </tr><tr>
+      <td><span style="font-size:10px;padding:2px 7px;border-radius:4px;font-weight:700;background:#f0fdf4;color:#166534;border:1px solid #bbf7d0;">Exercício</span></td>
+      <td class="fund-name">CPV PS DUPLICATA</td>
+      <td style="font-family:Inter,sans-serif;font-size:10px;">Ronskoski</td>
+      <td style="font-family:Inter,sans-serif;font-size:11px;">29/06/2026</td>
+           <td><span class="pill-pub">✓ DF OK</span></td>
     </tr></tbody>
       </table>
     </div></div>
@@ -721,38 +608,7 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
         </tr></tbody>
       </table>
     </div></div>
-    <div id="ev-drill" style="display: none;" class="drill-panel">
-    <div class="drill-header">
-      <div>
-        <div class="drill-title" style="color:var(--amber);">Eventos Jun/26 &nbsp;·&nbsp; 2 fundos</div>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn-export" onclick="exportTable('tbl-ev-drill','DFs_Eventos_Jun/26')">⬇ Exportar Excel</button>
-        <button class="drill-close" onclick="selectEv('Jun/26')">✕ Fechar</button>
-      </div>
-    </div>
-    <div class="tbl-scroll">
-      <table class="data-tbl" id="tbl-ev-drill">
-        <thead><tr>
-          <th>Fundo</th><th>Analista DF</th><th>Auditoria</th><th>Tipo do Evento</th><th>Data do Evento</th><th>Status Prazo</th>
-        </tr></thead>
-        <tbody><tr>
-          <td class="fund-name">ACÁCIA(NC 2025 II)</td>
-          <td style="font-size:11px;">Larissa Lourenço</td>
-          <td style="font-family:Inter,sans-serif;font-size:10px;">PWC</td>
-          <td><span style="font-size:11px;color:var(--amber);font-weight:600;">Encerramento</span></td>
-          <td style="font-family:Inter,sans-serif;font-size:11px;color:var(--text-faint);">02/06/2026</td>
-          <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-        </tr><tr>
-          <td class="fund-name">CANADA INVEST</td>
-          <td style="font-size:11px;">Confirmar</td>
-          <td style="font-family:Inter,sans-serif;font-size:10px;">CLA</td>
-          <td><span style="font-size:11px;color:var(--amber);font-weight:600;">Transf-out</span></td>
-          <td style="font-family:Inter,sans-serif;font-size:11px;color:var(--text-faint);">19/06/2026</td>
-          <td><span style="font-size:10px;color:var(--yellow);font-weight:600;">Menos de 60 dias</span></td>
-        </tr></tbody>
-      </table>
-    </div></div>
+    <div id="ev-drill" style="display:none;" class="drill-panel"></div>
   </div>
 
   <!-- TAB: AUDITORIA -->
@@ -986,7 +842,7 @@ footer{text-align:center;padding:20px 36px;color:var(--text-faint);font-size:11p
       <button id="btn-apply" onclick="applyUploads()" style="display: none; width: 100%; padding: 12px; background: var(--green); color: rgb(255, 255, 255); border-width: medium; border-style: none; border-color: currentcolor; border-image: initial; border-radius: var(--radius-sm); font-family: Inter, sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; margin-top: 4px;">
         ✓ Aplicar e Atualizar Dashboard
       </button>
-      <div id="status-apply" style="margin-top:10px;font-size:12px;text-align:center;min-height:18px;"><div style="color:var(--green);margin-bottom:4px;">✓ <strong>Controle de DFs.xlsx</strong>: 133 fundos Ex.2025 · 39 eventos 2025 · 36 fundos Ex.2026 · 16 eventos 2026</div><div style="color:var(--text-faint);font-size:11px;margin-top:6px;">Dashboard atualizado com sucesso ✓</div></div>
+      <div id="status-apply" style="margin-top:10px;font-size:12px;text-align:center;min-height:18px;"><div style="color:var(--green);margin-bottom:4px;">✓ <strong>Controle de DFs.xlsx</strong>: 133 fundos Ex.2025 · 39 eventos 2025 · 35 fundos Ex.2026 · 16 eventos 2026</div><div style="color:var(--text-faint);font-size:11px;margin-top:6px;">Dashboard atualizado com sucesso ✓</div></div>
 
 
     </div>
@@ -1156,22 +1012,21 @@ const exercicioFunds = [
   {nome:"SETTORE CRÉDITO PRIVADO",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 30 dias"},
   {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS PICPAY FGTS",analista:"Contabifi",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"CLA",statusPrazo:"Menos de 30 dias"},
   {nome:"GAMA. LIMITADA",analista:"Larissa Novais",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 30 dias"},
-  {nome:"BANMINAS",analista:"Larissa Novais",exSocial:3,prazoDate:"2026-06-29",status:"Publicada",auditoria:"Next",statusPrazo:"DF OK"},
+  {nome:"BANMINAS",analista:"Larissa Novais",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Next",statusPrazo:"Menos de 30 dias"},
   {nome:"SQUARE",analista:"Larissa Lourenço",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 30 dias"},
   {nome:"CREDIT PARTNERS FUNDO DE INVESTIMENTO EM DIREITO CREDITÓRIOS",analista:"Jow",exSocial:3,prazoDate:"2026-06-29",status:"Pendente",auditoria:"Confiance",statusPrazo:"Menos de 30 dias"},
-  {nome:"UNAVANTI",analista:"Larissa Lourenço",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
-  {nome:"ALVORADA IV",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"FORVS MAZARS",statusPrazo:"Menos de 60 dias"},
-  {nome:"BOLSA DE CRÉDITOS",analista:"LUIZ - OK",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"CREDALUGA",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 60 dias"},
-  {nome:"CLEAM CAPITAL BANK",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"CAPIA",analista:"LN - OK",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"GRANA TECH CRÉDITO POPULAR",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
-  {nome:"VIRTUS",analista:"LUIZ - OK",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
-  {nome:"BAY",analista:"Larissa Novais",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
-  {nome:"YELLOW CAPITAL I",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"BRAEVO",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"TRIO",analista:"LUISA - QUADROS",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
-  {nome:"MENESTYS III FUNDO DE INVESTIMENTO EM COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS NP",analista:"JOW",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIRMAR",statusPrazo:"Menos de 60 dias"},
+  {nome:"UNAVANTI",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"ALVORADA IV",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"FORVS MAZARS",statusPrazo:"Menos de 60 dias"},
+  {nome:"BOLSA DE CRÉDITOS",analista:"LUIZ",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CREDALUGA",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CLEAM CAPITAL BANK",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"CAPIA",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"GRANA TECH CRÉDITO POPULAR",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"VIRTUS",analista:"LUIZ",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"BAY",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"BGM",statusPrazo:"Menos de 60 dias"},
+  {nome:"YELLOW CAPITAL I",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"BRAEVO",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
+  {nome:"TRIO",analista:"—",exSocial:4,prazoDate:"2026-07-29",status:"Pendente",auditoria:"CONFIANCE",statusPrazo:"Menos de 60 dias"},
   {nome:"PLETORA FUNDO DE INVESTIMENTO EM DIREITOS CREDITORIOS",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 90 dias"},
   {nome:"FATURE",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"Ronskoski",statusPrazo:"Menos de 90 dias"},
   {nome:"INDIE MERX RAIZ I CRÉDITO AGRO FIDC DO AGRONEGÓCIO",analista:"Larissa Novais",exSocial:5,prazoDate:"2026-08-29",status:"Pendente",auditoria:"DELOITTE",statusPrazo:"Menos de 90 dias"},
@@ -1229,18 +1084,18 @@ const eventosFunds = [
   {nome:"JASPE",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"16/01/2026",auditoria:"NEXT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
   {nome:"RUBI",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"16/01/2026",auditoria:"NEXT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
   {nome:"TRADEMASTER III FIDC - RECEBÍVEIS COMERCIAIS",analista:"ContabiFi",mesBase:"Jan/26",dataEvento:"20/01/2026",auditoria:"GT",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:2},
-  {nome:"NOBEL II",analista:"Jow- OK",mesBase:"Jan/26",dataEvento:"26/01/2026",auditoria:"Ronskoski",tipoEvento:"Encerramento",statusPrazo:"DF OK",status:"Publicada",exSocial:6},
+  {nome:"NOBEL II",analista:"Jow- OK",mesBase:"Jan/26",dataEvento:"26/01/2026",auditoria:"Ronskoski",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:6},
   {nome:"CONDOLIVRE",analista:"LN- OK",mesBase:"Fev/26",dataEvento:"09/02/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:6},
   {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS TEMPUS II - RESPONSABILIDADE",analista:"Jow",mesBase:"Fev/26",dataEvento:"11/02/2026",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:10},
   {nome:"FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS CREDITAS  TEMPUS III",analista:"Larissa Novais",mesBase:"Fev/26",dataEvento:"11/02/2026",auditoria:"PWC",tipoEvento:"Incorporação",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
-  {nome:"FACIO",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"06/03/2026",auditoria:"PWC",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
+  {nome:"FACIO",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"06/03/2026",auditoria:"Confirmar",tipoEvento:"Encerramento",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
   {nome:"ALT LEGAL CLAIMS",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"20/03/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:11},
-  {nome:"ALTINVEST MASTER",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"20/03/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"DF OK",status:"Publicada",exSocial:12},
+  {nome:"ALTINVEST MASTER",analista:"ContabiFi",mesBase:"Mar/26",dataEvento:"20/03/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
   {nome:"SERCARD MULTIESTRATÉGIA",analista:"Larissa Lourenço",mesBase:"Mar/26",dataEvento:"03/03/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:8},
-  {nome:"SIRIUS IV",analista:"Larissa Novais",mesBase:"Abr/26",dataEvento:"02/04/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:7},
-  {nome:"MARANATA",analista:"Larissa Lourenço",mesBase:"Abr/26",dataEvento:"23/04/2026",auditoria:"BGM",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:12},
+  {nome:"SIRIUS IV",analista:"Larissa Lourenço",mesBase:"Abr/26",dataEvento:"02/04/2026",auditoria:"Ronskoski",tipoEvento:"Transf-out",statusPrazo:"Atrasada",status:"Pendente",exSocial:7},
+  {nome:"MARANATA",analista:"Larissa Lourenço",mesBase:"Abr/26",dataEvento:"23/04/2026",auditoria:"BGM",tipoEvento:"Transf-out",statusPrazo:"Menos de 30 dias",status:"Pendente",exSocial:12},
   {nome:"ACÁCIA(NC 2025 II)",analista:"Larissa Lourenço",mesBase:"Jun/26",dataEvento:"02/06/2026",auditoria:"PWC",tipoEvento:"Encerramento",statusPrazo:"Menos de 60 dias",status:"Pendente",exSocial:6},
-  {nome:"CANADA INVEST",analista:"Confirmar",mesBase:"Jun/26",dataEvento:"19/06/2026",auditoria:"CLA",tipoEvento:"Transf-out",statusPrazo:"Menos de 60 dias",status:"Pendente",exSocial:7}
+  {nome:"CANADA INVEST",analista:"Confirmar",mesBase:"Jun/26",dataEvento:"10/06/2026",auditoria:"Confirmar",tipoEvento:"Transf-out",statusPrazo:"Menos de 60 dias",status:"Pendente",exSocial:7}
 ];
 
 // ─── AUDITORIA 2026 DATA ──────────────────────────────────────────────────
@@ -1863,7 +1718,7 @@ function buildDonutChart() {
 
   const segs = [
     { key:"atrasadas",  label:"ATRASADAS", value:data.atr,  color:"#dc2626" },
-    { key:"pendentes",  label:"PENDENTES",  value:data.pend, color:"#E2B95A" },
+    { key:"pendentes",  label:"PENDENTES DENTRO DO PRAZO",  value:data.pend, color:"#E2B95A" },
     { key:"publicadas", label:"CONCLUÍDAS", value:data.pub,  color:"#14735a" },
   ];
 
